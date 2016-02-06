@@ -36,7 +36,7 @@
 		vm.data = {};
 		window.GAME = vm.game = game.get();
 
-		function handleGameEvent(data) {
+		function handleGameEvent() {
 			vm.game = game.get();
 		}
 
@@ -66,6 +66,10 @@
 			if (!vm.game.data.zones) { return []; }
 			return vm.game.data.zones.zones['player-'+getIndex()].zones.hand.stacks.hand.cards;
 		};
+		vm.redzone = function() {
+			if (!vm.game.data.zones) { return []; }
+			return vm.game.data.zones.zones.shared.zones.battle.stacks;
+		};
 
 		vm.getActivePlayer = function() {
 			if (!vm.game.data.players) { return {id:null}; }
@@ -73,6 +77,10 @@
 		};
 		vm.isActivePlayer = function() {
 			return vm.getActivePlayer().id === vm.user.id;
+		};
+		vm.getMainFrameHealth = function(index) {
+			if (!vm.game.data.zones) { return 0; }
+			return 20 - (vm.game.data.zones.zones['player-'+index].stacks.mainframe.damage || 0);
 		};
 
 		$scope.$on('$destroy', function() {
@@ -89,11 +97,22 @@
 		};
 		vm.pass = function() {
 			api.passAction(vm.user.id,vm.user.token);
+			vm.attacks = [];
 		};
 		vm.buy = function(cardId) {
 			if (!vm.canPlayHand()) { return console.log('not active player'); }
 			api.buy(vm.user.id,vm.user.token, cardId);
 		};
+		vm.declareAttacks = function() {
+			if (!vm.isActivePlayer() || !vm.canAttack()) {
+				return console.log('not active player or not attackers phase');
+			}
+			api.declareAttacks(vm.user.id, vm.user.token, vm.attacks);
+			vm.attacks = [];
+		};
+
+
+
 
 		function getOppIndex() {
 			if (!vm.game.data.players) { return null; }
@@ -124,6 +143,18 @@
 			var phase = vm.game.data.phases[vm.game.data.activePhase].name;
 			return vm.isActivePlayer() && (phase === 'main' || phase === 'second-main');
 		};
+		vm.canAttack = function() {
+			if (!vm.game.data.phases) { return false;}
+			var phase = vm.game.data.phases[vm.game.data.activePhase].name;
+			return vm.isActivePlayer() && (phase === 'declare-attackers');
+		};
+		//{id: target: }
+		vm.attacks = [];
+		vm.addAttack = function(id, target) {
+			if (!vm.canAttack()) { return; }
+			vm.attacks.push({id: id, target: target});
+		};
+
 	});
 
 }());

@@ -11,37 +11,41 @@
         </div>
         <div>Active Phase: <span>{{game.game.data.phases[game.game.data.activePhase].name}}</span></div>
         <button ng-click="game.pass()" ng-disabled="!game.isActivePlayer()">Next Phase</button>
+        <button ng-click="game.declareAttacks()" ng-disabled="!game.isActivePlayer() || !game.attacks.length">Declare Attacks</button>
         <br />
         <div class="opp-info">
             <div>{{ player.name }}</div>
+            <div>Mainframe Health {{ game.getMainFrameHealth(game.getOppIndex()) }}</div>
             <div>Currency {{ game.getCurrency(game.getOppIndex()) }}</div>
             <div>DECK {{game.getDeck(game.getOppIndex()).length}}</div>
             <div>HAND {{game.getHand(game.getOppIndex()).length}}</div>
             <div>DISCARD {{game.getDiscard(game.getOppIndex()).length}}</div>
             <hr />
         </div>
-        <hr />
-        <hr />
-        <div class="zone">
+        <div class="zone opp-inplay">
             <div ng-repeat="stack in game.oppInPlay() track by $index">
                 <div ng-repeat="card in stack.cards" ng-include="'views/card.html'">
                 </div>
             </div>
         </div>
-        <hr />
-        <div class="zone">
-            <div ng-repeat="stack in game.inPlay() track by $index">
+        <div class="zone redzone">
+            <div ng-repeat="stack in game.redzone() track by $index">
                 <div ng-repeat="card in stack.cards" ng-include="'views/card.html'">
                 </div>
             </div>
         </div>
-        <hr />
-        <hr />
-        <div class="zone" ng-class="{active: game.canPlayHand()}">
+        <div class="zone inplay">
+            <div ng-repeat="stack in game.inPlay() track by $index">
+                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-click="game.addAttack(card.id, 'mainframe')">
+                </div>
+            </div>
+        </div>
+        <div class="zone hand" ng-class="{active: game.canPlayHand()}">
             <div ng-repeat="card in game.getPlayerHand() track by $index" ng-include="'views/card.html'" ng-click="game.playCard(card.id)">
             </div>
         </div>
         <div class="self-info">
+            <div>Mainframe Health {{ game.getMainFrameHealth(game.getIndex()) }}</div>
             <div>Currency {{ game.getCurrency(game.getIndex()) }}</div>
             <div>DECK {{game.getDeck(game.getIndex()).length}}</div>
             <div>HAND {{game.getHand(game.getIndex()).length}}</div>

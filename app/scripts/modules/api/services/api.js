@@ -47,6 +47,9 @@ angular.module('packsApp').factory('api', ['$http', 'allServices', function($htt
 		},
 		buy: function(id,token,cardId) {
 			return $http.post(services.game + '/game/buy', {id: id, token: token, card: cardId}, config);
+		},
+		declareAttacks: function(id,token,attacks) {
+			return $http.post(services.game + '/game/attack', {id: id, token: token, attacks: attacks}, config);
 		}
 	};
 

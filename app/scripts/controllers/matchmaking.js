@@ -29,7 +29,7 @@ angular.module('packsApp')
 			});
 		};
 
-		function handleGameEvent(data) {
+		function handleGameEvent() {
 			return $location.path('/game');
 		}
 

@@ -14,6 +14,13 @@ a {
 .zone > div {
   float: left;
 }
+.zone.hand {
+  text-align: center;
+}
+.zone.hand > div {
+  display: inline-block;
+  float: none;
+}
 .card {
   box-sizing: border-box;
   display: inline-block;
@@ -24,6 +31,7 @@ a {
   border-radius: .2em;
   margin: .5em;
   position: relative;
+  background: white;
 }
 .card span {
   background: #ccc;
@@ -34,4 +42,18 @@ a {
 }
 .active .card {
   box-shadow: 3px 3px 3px green;
+}
+
+.zone.opp-inplay {
+  background: #ccc;
+  width: 100%;
+  min-height: 11em;
+}
+.zone.inplay {
+  background: #ccc;
+  min-height: 11em;
+}
+.zone.redzone {
+  background: red;
+  min-height: 11em;
 }
