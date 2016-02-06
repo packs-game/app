@@ -1,8 +1,9 @@
 {
-  "name": "packs",
+  "name": "packs-app",
   "version": "0.0.0",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "packs-lib": "git+https://github.com/packs-game/packs-lib.git"
   },
   "devDependencies": {
     "connect-modrewrite": "^0.8.5",
@@ -35,6 +36,7 @@
     "karma-phantomjs-launcher": "^0.2.3",
     "load-grunt-tasks": "^0.4.0",
     "phantomjs": "^1.9.19",
+    "q": "^1.4.1",
     "time-grunt": "^0.3.1"
   },
   "engines": {

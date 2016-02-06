@@ -88,7 +88,7 @@ module.exports = function (grunt) {
               function(req,res,next){
                 if (req.url === '/services.json') {
                   res.setHeader('Content-Type', 'application/json');
-                  return res.end(JSON.stringify(require('../../../lib/services')));
+                  return res.end(JSON.stringify(require('packs-lib').services));
                 }
                 next();
               }
