@@ -46,20 +46,20 @@
 		socket.on('game-event', handleGameEvent);
 
 		vm.getCurrency = function(playerIndex) {
-			if (!playerIndex) { return 0; }
+			if (typeof playerIndex !== 'number') { return 0; }
 			return vm.game.data.zones.zones['player-'+playerIndex].stacks.currency.cards.length;
 		};
 
 		vm.getDeck = function(playerIndex) {
-			if (!playerIndex) { return []; }
+			if (typeof playerIndex !== 'number') { return []; }
 			return vm.game.data.zones.zones['player-'+playerIndex].zones.deck.stacks.deck.cards;
 		};
 		vm.getHand = function(playerIndex) {
-			if (!playerIndex) { return []; }
+			if (typeof playerIndex !== 'number') { return []; }
 			return vm.game.data.zones.zones['player-'+playerIndex].zones.hand.stacks.hand.cards;
 		};
 		vm.getDiscard = function(playerIndex) {
-			if (!playerIndex) { return []; }
+			if (typeof playerIndex !== 'number') { return []; }
 			return vm.game.data.zones.zones['player-'+playerIndex].stacks.discard.cards;
 		};
 		vm.getPlayerHand = function() {
@@ -84,12 +84,14 @@
 		});
 
 		vm.playCard = function(cardId) {
+			if (!vm.canPlayHand()) { return console.log('not active player'); }
 			api.playCard(vm.user.id, vm.user.token, cardId);
 		};
 		vm.pass = function() {
 			api.passAction(vm.user.id,vm.user.token);
 		};
 		vm.buy = function(cardId) {
+			if (!vm.canPlayHand()) { return console.log('not active player'); }
 			api.buy(vm.user.id,vm.user.token, cardId);
 		};
 
@@ -115,7 +117,12 @@
 
 		vm.toBuy = function() {
 			if (!vm.game.data.zones) { return []; }
-			return vm.game.data.zones.zones.shared.zones['to-buy'].stacks;	
+			return vm.game.data.zones.zones.shared.zones['to-buy'].stacks;
+		};
+		vm.canPlayHand = function() {
+			if (!vm.game.data.phases) { return false;}
+			var phase = vm.game.data.phases[vm.game.data.activePhase].name;
+			return vm.isActivePlayer() && (phase === 'main' || phase === 'second-main');
 		};
 	});
 

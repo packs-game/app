@@ -9,6 +9,10 @@ a {
 
 .zone {
   clear: both;
+  overflow: hidden;
+}
+.zone > div {
+  float: left;
 }
 .card {
   box-sizing: border-box;

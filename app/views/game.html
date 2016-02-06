@@ -37,7 +37,7 @@
         </div>
         <hr />
         <hr />
-        <div class="zone" ng-class="{active: game.isActivePlayer()}">
+        <div class="zone" ng-class="{active: game.canPlayHand()}">
             <div ng-repeat="card in game.getPlayerHand() track by $index" ng-include="'views/card.html'" ng-click="game.playCard(card.id)">
             </div>
         </div>
