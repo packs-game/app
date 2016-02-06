@@ -1,0 +1,30 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.zone {
+  clear: both;
+}
+.card {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 7em;
+  height: 9em;
+  border: .2em solid;
+  padding: .2em;
+  border-radius: .2em;
+  margin: .5em;
+  position: relative;
+}
+.card span {
+  background: #ccc;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: .2em;
+}

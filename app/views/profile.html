@@ -1,0 +1,15 @@
+<div>
+	<h2>Profile</h2>
+	<div ng-show="vm.user.authed">
+	    {{vm.user.username}}
+	    <br />
+	    {{vm.user.id}}
+	    <br />
+	    {{vm.user.token}}
+	    <br />
+	    <button ng-click="vm.logout()">Logout</button>
+	</div>
+	<div ng-show="!vm.user.authed">
+		Not Authed.
+	</div>
+</div>

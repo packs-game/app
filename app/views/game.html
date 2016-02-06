@@ -1,0 +1,39 @@
+<div name="board" ng-controller="GameCtrl as game">
+    <div ng-show="game.game.data.started">
+        <div>Turn: {{game.game.data.turn}}</div>
+        <div>Active Player: <span>{{game.game.data.players[game.game.data.activePlayer].name}}</span></div>
+        <br />
+        <div ng-repeat="player in game.game.data.players">
+            <div>{{ player.name }}</div>
+            <div>Currency {{ game.getCurrency($index) }}</div>
+            <br />
+            PLAY
+            <div class="zone">
+                GAME
+                <div class="card" ng-repeat="stack in game.game.data.zones.zones.shared.zones['player'+$index+'-inplay'].stacks track by $index">
+                    <div ng-repeat="card in stack.cards" ng-include="'views/card.html'">
+                    </div>
+                </div>
+            </div>
+            DECK
+            <div class="zone">
+                <div class="card" ng-repeat="card in game.getDeck($index) track by $index">
+                    <div ng-include="'views/card.html'">
+                    </div>
+                </div>
+            </div>
+            HAND
+            <div class="zone">
+                <div class="card" ng-repeat="card in game.getHand($index) track by $index" ng-include="'views/card.html'">
+                </div>
+            </div>
+            DISCARD
+            <div class="zone">
+                <div class="card" ng-repeat="card in getDiscard($index) track by $index" ng-include="'views/card.html'">
+                </div>
+            </div>
+            <hr />
+        </div>
+    </div>
+    <pre>{{game.game.data | json}}</pre>
+</div>
