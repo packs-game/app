@@ -38,6 +38,15 @@ angular.module('packsApp').factory('api', ['$http', 'allServices', function($htt
 		},
 		getGame: function(id, token) {
 			return $http.post(services.game + '/game', {id: id, token: token}, config);
+		},
+		playCard: function(id,token,cardId) {
+			return $http.post(services.game + '/game/play-card', {id: id, token: token, card: cardId}, config);
+		},
+		passAction: function(id,token) {
+			return $http.post(services.game + '/game/pass', {id: id, token: token}, config);
+		},
+		buy: function(id,token,cardId) {
+			return $http.post(services.game + '/game/buy', {id: id, token: token, card: cardId}, config);
 		}
 	};
 

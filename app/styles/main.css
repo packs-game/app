@@ -28,3 +28,6 @@ a {
   right: 0;
   padding: .2em;
 }
+.active .card {
+  box-shadow: 3px 3px 3px green;
+}
