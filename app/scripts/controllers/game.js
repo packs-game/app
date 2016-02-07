@@ -98,6 +98,7 @@
 		vm.pass = function() {
 			api.passAction(vm.user.id,vm.user.token);
 			vm.attacks = [];
+			vm.blocks = [];
 		};
 		vm.buy = function(cardId) {
 			if (!vm.canPlayHand()) { return console.log('not active player'); }
@@ -109,6 +110,13 @@
 			}
 			api.declareAttacks(vm.user.id, vm.user.token, vm.attacks);
 			vm.attacks = [];
+		};
+		vm.declareBlocks = function() {
+			if (!vm.isActivePlayer() || !vm.canBlock()) {
+				return console.log('not active player or not blockers phase');
+			}
+			api.declareBlocks(vm.user.id, vm.user.token, vm.blocks);
+			vm.blocks = [];
 		};
 
 
@@ -140,14 +148,28 @@
 		};
 		vm.canPlayHand = function() {
 			if (!vm.game.data.phases) { return false;}
-			var phase = vm.game.data.phases[vm.game.data.activePhase].name;
+			var phase = getPhase();
 			return vm.isActivePlayer() && (phase === 'main' || phase === 'second-main');
 		};
 		vm.canAttack = function() {
 			if (!vm.game.data.phases) { return false;}
-			var phase = vm.game.data.phases[vm.game.data.activePhase].name;
+			var phase = getPhase();
 			return vm.isActivePlayer() && (phase === 'declare-attackers');
 		};
+		vm.canBlock = function() {
+			if (!vm.game.data.phases) { return false;}
+			var phase = getPhase();
+			return vm.isActivePlayer() && (phase === 'declare-defenders');
+		};
+
+		function getPhase() {
+			return vm.game.data.phases[vm.game.data.activePhase].name;
+		}
+
+		vm.isAttacking = function() {
+
+		};
+
 		//{id: target: }
 		vm.attacks = [];
 		vm.addAttack = function(id, target) {
@@ -155,6 +177,29 @@
 			vm.attacks.push({id: id, target: target});
 		};
 
+		vm.blocks = [];
+		vm.addBlock = function(id, target) {
+			if (!vm.canBlock() || !vm.activeCard) { return; }
+			vm.blocks.push({id: id, target: target});
+			vm.activeCard = null;
+		};
+
+		vm.setActive = function(id) {
+			if (getPhase() !== 'declare-defenders') { return; }
+
+			if (vm.activeCard === id) { vm.activeCard = null; } //toggle it off
+			else { vm.activeCard = id; }
+		};
+
+		vm.activeCard = null;
+
+		vm.gameOver = function() {
+			return vm.game.data.ended ? true : false;
+		};
+		vm.isWinner = function() {
+			if (!vm.game.data.players) { return null; }
+			return vm.game.data.players[vm.getIndex()].win;
+		}
 	});
 
 }());

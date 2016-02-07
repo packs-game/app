@@ -50,6 +50,9 @@ angular.module('packsApp').factory('api', ['$http', 'allServices', function($htt
 		},
 		declareAttacks: function(id,token,attacks) {
 			return $http.post(services.game + '/game/attack', {id: id, token: token, attacks: attacks}, config);
+		},
+		declareBlocks: function(id,token,blocks) {
+			return $http.post(services.game + '/game/block', {id: id, token: token, blocks: blocks}, config);
 		}
 	};
 
