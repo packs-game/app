@@ -41,6 +41,7 @@ a {
 }
 
 .zone.to-buy {
+  box-sizing: border-box;
   position: absolute;
   width: 9em;
   background: #3d3d3d;
