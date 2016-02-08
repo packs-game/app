@@ -51,9 +51,12 @@ a {
   margin-right: 0;
 }
 
+[ng-drop].drag-enter {
+  border: 2px dashed;
+}
 .zone {
+  box-sizing: border-box;
   clear: both;
-  overflow: hidden;
   text-align: center;
   margin-right: 9em;
 }

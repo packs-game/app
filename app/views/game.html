@@ -32,20 +32,24 @@
                 </div>
             </div>
         </div>
-        <div class="zone redzone">
+        <div class="zone redzone" ng-drop="true" ng-drop-success="game.dropRedzone($data,$event)">
             <div ng-repeat="stack in game.redzone() track by $index">
-                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-click="game.addBlock(game.activeCard, card.id)">
+                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-drop="true" ng-drop-success="game.dropRedzoneStack($data,$event, card.id)">
                 </div>
             </div>
         </div>
         <div class="zone inplay">
             <div ng-repeat="stack in game.inPlay() track by $index">
-                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-click="game.setActive(card.id); game.addAttack(card.id, 'mainframe');" ng-class="{active: game.activeCard == card.id}">
+                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'"
+                    ng-class="{active: game.activeCard == card.id}"
+                    ng-drag="true" ng-drag-data="{card: card}" ng-center-anchor="true">
                 </div>
             </div>
         </div>
         <div class="zone hand" ng-class="{active: game.canPlayHand()}">
-            <div ng-repeat="card in game.getPlayerHand() track by $index" ng-include="'views/card.html'" ng-click="game.playCard(card.id)">
+            <div ng-repeat="card in game.getPlayerHand() track by $index"
+                ng-include="'views/card.html'"
+                ng-drag="true" ng-drag-data="{card: card}" ng-drag-success="game.playCard(card.id)" ng-center-anchor="true">
             </div>
         </div>
         <div class="self-info">

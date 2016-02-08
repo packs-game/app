@@ -200,6 +200,20 @@
 			if (!vm.game.data.players) { return null; }
 			return vm.game.data.players[vm.getIndex()].win;
 		}
+
+
+
+
+		vm.dragPlay = function($data,$event) {
+			console.log('play', $data,$event);
+		}
+		vm.dropRedzoneStack = function($data,$event,target) {
+			vm.setActive($data.card.id);
+			vm.addBlock($data.card.id, target);
+		}
+		vm.dropRedzone = function($data,$event) {
+			vm.addAttack($data.card.id, 'mainframe');
+		}
 	});
 
 }());
