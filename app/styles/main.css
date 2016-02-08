@@ -21,6 +21,13 @@ a {
   display: inline-block;
   float: none;
 }
+.card.tapped {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
 .card {
   box-sizing: border-box;
   display: inline-block;
