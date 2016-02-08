@@ -1,26 +1,30 @@
-<div name="board" ng-controller="GameCtrl as game">
+<div class="gameboard" name="board" ng-controller="GameCtrl as game">
     <div ng-show="game.game.data.started && !game.gameOver()">
-        <div>Turn: {{game.game.data.turn}}</div>
-        <div>Active Player: <span>{{game.getActivePlayer().name}}</span></div>
-        <div class="zone">
+        <div class="top-info">
+            <div>Turn: {{game.game.data.turn}}</div>
+            <div>Active Player: <span>{{game.getActivePlayer().name}}</span></div>
+            <div>Active Phase: <span>{{game.game.data.phases[game.game.data.activePhase].name}}</span></div>
+        </div>
+        <div class="zone to-buy">
             <div ng-repeat="stack in game.toBuy() track by $index">
                 <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-click="game.buy(card.id)">
                 </div>
             </div>
         </div>
-        <div>Active Phase: <span>{{game.game.data.phases[game.game.data.activePhase].name}}</span></div>
-        <button ng-click="game.pass()" ng-show="game.isActivePlayer()">Next Phase</button>
-        <button ng-click="game.declareAttacks()" ng-show="game.isActivePlayer() && game.attacks.length">Declare Attacks</button>
-        <button ng-click="game.declareBlocks()" ng-show="game.isActivePlayer() && game.blocks.length">Declare Blockers</button>
-        <br />
+        
+        <div class="button-container">
+            <button ng-click="game.pass()" ng-show="game.isActivePlayer()">Next Phase</button>
+            <button ng-click="game.declareAttacks()" ng-show="game.isActivePlayer() && game.attacks.length">Declare Attacks</button>
+            <button ng-click="game.declareBlocks()" ng-show="game.isActivePlayer() && game.blocks.length">Declare Blockers</button>
+        </div>
+
         <div class="opp-info">
             <div>{{ player.name }}</div>
-            <div>Mainframe Health {{ game.getMainFrameHealth(game.getOppIndex()) }}</div>
-            <div>Currency {{ game.getCurrency(game.getOppIndex()) }}</div>
+            <div>Health {{ game.getMainFrameHealth(game.getOppIndex()) }}</div>
+            <div>$ {{ game.getCurrency(game.getOppIndex()) }}</div>
             <div>DECK {{game.getDeck(game.getOppIndex()).length}}</div>
             <div>HAND {{game.getHand(game.getOppIndex()).length}}</div>
             <div>DISCARD {{game.getDiscard(game.getOppIndex()).length}}</div>
-            <hr />
         </div>
         <div class="zone opp-inplay">
             <div ng-repeat="stack in game.oppInPlay() track by $index">
@@ -45,10 +49,9 @@
             </div>
         </div>
         <div class="self-info">
-            <div>Mainframe Health {{ game.getMainFrameHealth(game.getIndex()) }}</div>
-            <div>Currency {{ game.getCurrency(game.getIndex()) }}</div>
+            <div>Health {{ game.getMainFrameHealth(game.getIndex()) }}</div>
+            <div>$ {{ game.getCurrency(game.getIndex()) }}</div>
             <div>DECK {{game.getDeck(game.getIndex()).length}}</div>
-            <div>HAND {{game.getHand(game.getIndex()).length}}</div>
             <div>DISCARD {{game.getDiscard(game.getIndex()).length}}</div>
         </div>
     </div>
@@ -58,3 +61,4 @@
     </div>
     <!--<pre>{{game.game.data | json}}</pre>-->
 </div>
+<div ng-include="'/views/menu.html'" ng-show="!game.game.data.started"></div>

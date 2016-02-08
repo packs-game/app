@@ -22,29 +22,8 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container">
-        <div class="header" ng-controller="MainCtrl as main">
-            <ul class="nav nav-pills pull-right">
-                <li ng-show="main.user.authed">
-                    <a ng-href="/profile">Profile</a>
-                </li>
-                <li ng-show="main.user.authed">
-                    <a ng-href="/">Game</a>
-                </li>
-                <li ng-show="!main.user.authed">
-                    <a ng-href="/login">Login</a>
-                </li>
-                <li ng-show="!main.user.authed">
-                    <a ng-href="/register">Register</a>
-                </li>
-            </ul>
-            <h3 class="text-muted">packs</h3>
-        </div>
+    <div>
         <div ng-view=""></div>
-
-      <div class="footer">
-        <hr />
-      </div>
     </div>
 
     <!-- build:js(.) scripts/oldieshim.js -->
