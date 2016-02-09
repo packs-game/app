@@ -92,7 +92,7 @@
 		});
 
 
-		vm.playCard = function(card, $event) {
+		vm.playCard = function(card) {
 			if (!vm.canPlayHand()) { return console.log('not active player'); }
 			api.playCard(vm.user.id, vm.user.token, card.id);
 			card.playing = true;
@@ -177,19 +177,58 @@
 			});
 			return toRet;
 		};
+		vm.isBlocking = function(cardId) {
+			var toRet = false;
+			vm.blocks.forEach(function(a){
+				if (a.id === cardId) {
+					toRet = true;
+				}
+			});
+			return toRet;
+		};
 
 		//{id: target: }
 		vm.attacks = [];
 		vm.addAttack = function(id, target) {
 			if (!vm.canAttack()) { return; }
+			if (vm.isAttacking(id)) { return; }
 			vm.attacks.push({id: id, target: target});
 		};
 
 		vm.blocks = [];
 		vm.addBlock = function(id, target) {
 			if (!vm.canBlock() || !vm.activeCard) { return; }
+			if (vm.isBlocking(id)) {
+				vm.undo({card: {id: id}});
+			}
 			vm.blocks.push({id: id, target: target});
 			vm.activeCard = null;
+		};
+
+		vm.undo = function($data) {
+			if (vm.blocks.length) {
+				var toUnblock;
+				vm.blocks.forEach(function(block,i){
+					if (block.id === $data.card.id) {
+						toUnblock = i;
+					}
+				});
+				if (typeof toUnblock === 'number') {
+					vm.blocks.splice(toUnblock,1);
+				}
+			}
+			if (vm.attacks.length) {
+				var toUnAttack;
+				vm.attacks.forEach(function(block,i){
+					if (block.id === $data.card.id) {
+						toUnAttack = i;
+					}
+				});
+				if (typeof toUnAttack === 'number') {
+					vm.attacks.splice(toUnAttack,1);
+				}
+			}
+			vm.showBlocks();
 		};
 
 		vm.setActive = function(id) {
@@ -212,6 +251,7 @@
 		vm.dropRedzoneStack = function($data,$event,target) {
 			vm.setActive($data.card.id);
 			vm.addBlock($data.card.id, target);
+			vm.showBlocks();
 		};
 		vm.dropRedzone = function($data) {
 			vm.addAttack($data.card.id, 'mainframe');
@@ -222,6 +262,23 @@
 			var p = vm.game.data.phases[vm.game.data.activePhase+1];
 			if (!p) { p = vm.game.data.phases[0]; }
 			return p.name;
+		};
+
+		vm.showBlocks = function() {
+			$('.card').attr('style', '');
+			vm.blocks.forEach(function(block){
+				var card = $('.'+block.id).parent();
+				var target = $('.'+block.target).parent();
+				card.css({
+					position: 'absolute',
+					top: (target.offset().top+50)+ 'px',
+					left: (target.offset().left+50)+ 'px',
+				})
+			});
+		};
+		vm.resetStyles = function(id) {
+			var card = $('.'+id).parent();
+			$('.card').attr('style', '');
 		};
 	});
 

@@ -1,5 +1,5 @@
 <div class="gameboard" name="board" ng-controller="GameCtrl as game">
-    <div ng-show="game.game.data.started && !game.gameOver()">
+    <div ng-show="game.game.data.started && !game.gameOver()" class="phase-{{game.game.data.phases[game.game.data.activePhase].name}}">
         <div class="top-info">
             <div>Turn: {{game.game.data.turn}}</div>
             <div>Active Player: <span>{{game.getActivePlayer().name}}</span></div>
@@ -7,7 +7,7 @@
         </div>
         <div class="zone to-buy">
             <div ng-repeat="stack in game.toBuy() track by $index">
-                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-click="game.buy(card.id)">
+                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-click="game.buy(card.id)" ng-class="{active: game.canPlayHand() && card.cost <= game.getCurrency(game.getIndex())}">
                 </div>
             </div>
         </div>
@@ -26,25 +26,35 @@
             <div>HAND {{game.getHand(game.getOppIndex()).length}}</div>
             <div>DISCARD {{game.getDiscard(game.getOppIndex()).length}}</div>
         </div>
-        <div class="zone opp-inplay">
-            <div ng-repeat="stack in game.oppInPlay() track by $index">
-                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'">
+        <div class="zone-container" ng-drop="game.canPlayHand()">
+            <div class="zone opp-inplay">
+                <div ng-repeat="stack in game.oppInPlay() track by $index">
+                    <div ng-repeat="card in stack.cards" ng-include="'views/card.html'">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="zone redzone" ng-drop="true" ng-drop-success="game.dropRedzone($data,$event)">
-            <div ng-repeat="stack in game.redzone() track by $index">
-                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-drop="true"
-                    ng-drop-success="game.dropRedzoneStack($data,$event, card.id)">
+            <div class="zone redzone" ng-drop="game.canAttack()" ng-drop-success="game.dropRedzone($data,$event)">
+                <div ng-repeat="stack in game.redzone() track by $index">
+                    <div ng-repeat="card in stack.cards"
+                        ng-include="'views/card.html'"
+                        ng-drop="game.canBlock()"
+                        ng-drop-success="game.dropRedzoneStack($data,$event, card.id)">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="zone inplay">
-            <div ng-repeat="stack in game.inPlay() track by $index">
-                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'"
-                    ng-class="{attacking: game.isAttacking(card.id), tapped: game.isAttacking(card.id)}"
-                    ng-drag="(game.canAttack() || game.canBlock()) && !card.tapped" ng-drag-data="{card: card}" ng-center-anchor="true"
-                    class="card-container">
+            <div class="zone inplay" ng-drop="game.canBlock() || game.canAttack()" ng-drop-success="game.undo($data,$event)">
+                <div ng-repeat="stack in game.inPlay() track by $index">
+                    <div ng-repeat="card in stack.cards" ng-include="'views/card.html'"
+                        ng-class="{
+                            attacking: game.isAttacking(card.id),
+                            tapped: game.isAttacking(card.id),
+                            active: (game.canAttack() || game.canBlock()) && !card.tapped
+                        }"
+
+                        ng-drag="(game.canAttack() || game.canBlock()) && !card.tapped"
+                        ng-drag-data="{card: card}" ng-center-anchor="true"
+                        class="card-container">
+                    </div>
                 </div>
             </div>
         </div>
