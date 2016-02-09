@@ -13,7 +13,7 @@
         </div>
         
         <div class="button-container">
-            <button ng-click="game.pass()" ng-show="game.isActivePlayer()">Next Phase</button>
+            <button ng-click="game.pass()" ng-show="game.isActivePlayer()">Go to {{ game.getNextPhase() }}</button>
             <button ng-click="game.declareAttacks()" ng-show="game.isActivePlayer() && game.attacks.length">Declare Attacks</button>
             <button ng-click="game.declareBlocks()" ng-show="game.isActivePlayer() && game.blocks.length">Declare Blockers</button>
         </div>
@@ -34,22 +34,28 @@
         </div>
         <div class="zone redzone" ng-drop="true" ng-drop-success="game.dropRedzone($data,$event)">
             <div ng-repeat="stack in game.redzone() track by $index">
-                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-drop="true" ng-drop-success="game.dropRedzoneStack($data,$event, card.id)">
+                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-drop="true"
+                    ng-drop-success="game.dropRedzoneStack($data,$event, card.id)">
                 </div>
             </div>
         </div>
         <div class="zone inplay">
             <div ng-repeat="stack in game.inPlay() track by $index">
                 <div ng-repeat="card in stack.cards" ng-include="'views/card.html'"
-                    ng-class="{active: game.activeCard == card.id}"
-                    ng-drag="true" ng-drag-data="{card: card}" ng-center-anchor="true">
+                    ng-class="{attacking: game.isAttacking(card.id), tapped: game.isAttacking(card.id)}"
+                    ng-drag="(game.canAttack() || game.canBlock()) && !card.tapped" ng-drag-data="{card: card}" ng-center-anchor="true"
+                    class="card-container">
                 </div>
             </div>
         </div>
         <div class="zone hand" ng-class="{active: game.canPlayHand()}">
             <div ng-repeat="card in game.getPlayerHand() track by $index"
                 ng-include="'views/card.html'"
-                ng-drag="true" ng-drag-data="{card: card}" ng-drag-success="game.playCard(card.id)" ng-center-anchor="true">
+                ng-drag="game.canPlayHand()" ng-drag-data="{card: card}"
+                ng-drag-success="game.playCard($data.card, $event)"
+                ng-center-anchor="true"
+                class="card-container"
+                ng-class="{hide: card.playing}">
             </div>
         </div>
         <div class="self-info">
@@ -65,4 +71,4 @@
     </div>
     <!--<pre>{{game.game.data | json}}</pre>-->
 </div>
-<div ng-include="'/views/menu.html'" ng-show="!game.game.data.started"></div>
+<div ng-include="'/views/menu.html'" ng-show="!game.game.data.started || game.gameOver()"></div>

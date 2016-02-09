@@ -76,15 +76,23 @@ a {
   bottom: 1em;
 }
 
-.card.tapped {
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
+
+.zone.inplay .dragging.drag-over .card {
   transform: rotate(90deg);
-  margin: 1em 1.5em;
+}
+
+.zone.hand .dragging.drag-over .card {
+  transform: scale(1.25);
+  transition: transform .25s;
+}
+
+.card-container.attacking {
+    top: -10em;
+    position: relative;
 }
 .card {
+  transform: rotate(0deg) scale(1);
+  transition: transform 1s;
   box-sizing: border-box;
   display: inline-block;
   width: 7em;
@@ -96,6 +104,16 @@ a {
   position: relative;
   background: white;
 }
+.tapped {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  margin: 1em 1.5em;
+}
+
+
 .card span {
   background: #ccc;
   position: absolute;

@@ -91,9 +91,11 @@
 			}
 		});
 
-		vm.playCard = function(cardId) {
+
+		vm.playCard = function(card, $event) {
 			if (!vm.canPlayHand()) { return console.log('not active player'); }
-			api.playCard(vm.user.id, vm.user.token, cardId);
+			api.playCard(vm.user.id, vm.user.token, card.id);
+			card.playing = true;
 		};
 		vm.pass = function() {
 			api.passAction(vm.user.id,vm.user.token);
@@ -166,8 +168,14 @@
 			return vm.game.data.phases[vm.game.data.activePhase].name;
 		}
 
-		vm.isAttacking = function() {
-
+		vm.isAttacking = function(cardId) {
+			var toRet = false;
+			vm.attacks.forEach(function(a){
+				if (a.id === cardId) {
+					toRet = true;
+				}
+			});
+			return toRet;
 		};
 
 		//{id: target: }
@@ -207,6 +215,13 @@
 		};
 		vm.dropRedzone = function($data) {
 			vm.addAttack($data.card.id, 'mainframe');
+		};
+
+		vm.getNextPhase = function() {
+			if (!vm.game.data || !vm.game.data.phases) { return ''; }
+			var p = vm.game.data.phases[vm.game.data.activePhase+1];
+			if (!p) { p = vm.game.data.phases[0]; }
+			return p.name;
 		};
 	});
 
