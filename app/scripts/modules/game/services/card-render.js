@@ -20,19 +20,25 @@
 			}
 		}
 		var toLoad = 0;
-		var totalLoad = 6;
+		var totalLoad = 9;
 		var bg = new createjs.Bitmap('images/background.png');
 		var bg2 = new createjs.Bitmap('images/typebg.png');
 		var bg22 = new createjs.Bitmap('images/type2bg.png');
+		var bg23 = new createjs.Bitmap('images/type3bg.png');
 		var img = new createjs.Bitmap('images/card-img.png');
+		var img2 = new createjs.Bitmap('images/card-img2.png');
 		var overlay = new createjs.Bitmap('images/overlay.png');
 		var overlay2 = new createjs.Bitmap('images/type2-overlay.png');
+		var overlay3 = new createjs.Bitmap('images/type3-overlay.png');
 		bg.image.onload = loaded;
 		bg2.image.onload = loaded;
 		bg22.image.onload = loaded;
+		bg23.image.onload = loaded;
 		img.image.onload = loaded;
+		img2.image.onload = loaded;
 		overlay.image.onload = loaded;
 		overlay2.image.onload = loaded;
+		overlay3.image.onload = loaded;
 
 		var onReady = [];
 
@@ -44,8 +50,8 @@
 				return onReady.push([card,cb]);
 			}
 			var stage = new createjs.Stage(canvas);
-			img.x = 10;
-			img.y = 48;
+			img2.x = img.x = 10;
+			img2.y = img.y = 48;
 			
 			var titleTxt = new createjs.Text('', '20px Arial', 'black');
 			titleTxt.x = 90;
@@ -80,14 +86,26 @@
 				cardText.text = card.power;
 				cardText.font = 'bold 40px Arial';
 				stage.addChild(bg22);
-			} else {
+			} else if (card.type === 'currency') {
+				stage.addChild(bg23);
+			}else {
 				stage.addChild(bg2);
 			}
-			stage.addChild(img);
+
+
+			if (card.type === 'currency') {
+				stage.addChild(img2);
+			} else {
+				stage.addChild(img);
+			}
 			
 			if (card.type === 'token') {
 				stage.addChild(overlay2);
-			} else {
+			}
+			else if (card.type === 'currency') {
+				stage.addChild(overlay3);
+			}
+			else {
 				stage.addChild(overlay);
 			}
 			
