@@ -283,7 +283,7 @@
 		};
 
 		vm.render = function(card) {
-			return cardRender.render(card.name, card.text||card.power);
+			return cardRender.render(card);
 		};
 	});
 
