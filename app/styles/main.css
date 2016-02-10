@@ -102,14 +102,10 @@ a {
   transition: transform 1s;
   box-sizing: border-box;
   display: inline-block;
-  width: 7em;
-  height: 9em;
-  border: .2em solid;
-  padding: .2em;
-  border-radius: .2em;
+  width: 7.5em;
+  height: 9.5em;
   margin: .5em;
   position: relative;
-  background: white;
 }
 .tapped {
   -webkit-transform: rotate(90deg);
@@ -122,11 +118,7 @@ a {
 
 
 .card span {
-  background: #ccc;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: .2em;
+  display: none;
 }
 .active .card {
   box-shadow: 3px 3px 3px green;

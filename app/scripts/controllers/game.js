@@ -30,7 +30,7 @@
 		'phase:entered'
 	];
 
-	angular.module('packsApp').controller('GameCtrl', function(socket, user, $scope, game, api) {
+	angular.module('packsApp').controller('GameCtrl', function(socket, user, $scope, game, api, cardRender) {
 		var vm = this;
 		vm.user = user.get();
 		vm.data = {};
@@ -279,6 +279,10 @@
 		vm.resetStyles = function(id) {
 			var card = $('.'+id).parent();
 			$('.card').attr('style', '');
+		};
+
+		vm.render = function(card) {
+			return cardRender.render(card.name, card.text||card.power);
 		};
 	});
 

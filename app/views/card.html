@@ -1,9 +1,4 @@
 <div class="card" ng-class="{tapped: card.tapped}">
-	{{ card.name }}
-	<span>{{ card.cost }}</span>
-	<strong>{{card.power}}</strong>
-	<p>
-	    {{ card.text }}
-	</p>
+	<img src="{{game.render(card)}}" style="width: 7.5em; height: 9.5em;"/>
 	<span class="{{card.id}}"></span>
 </div>
