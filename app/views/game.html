@@ -18,10 +18,11 @@
             <button ng-click="game.declareBlocks()" ng-show="game.isActivePlayer() && game.blocks.length">Declare Blockers</button>
         </div>
 
+        <div class="opp-currency">{{ game.getCurrency(game.getOppIndex()) }}</div>
+        <div class="opp-health">{{ game.getMainFrameHealth(game.getOppIndex()) }}</div>
         <div class="opp-info">
             <div>{{ player.name }}</div>
-            <div>Health {{ game.getMainFrameHealth(game.getOppIndex()) }}</div>
-            <div>$ {{ game.getCurrency(game.getOppIndex()) }}</div>
+            
             <div>DECK {{game.getDeck(game.getOppIndex()).length}}</div>
             <div>HAND {{game.getHand(game.getOppIndex()).length}}</div>
             <div>DISCARD {{game.getDiscard(game.getOppIndex()).length}}</div>
@@ -68,9 +69,9 @@
                 ng-class="{hide: card.playing}">
             </div>
         </div>
+        <div class="self-currency">{{ game.getCurrency(game.getIndex()) }}</div>
+        <div class="self-health">{{ game.getMainFrameHealth(game.getIndex()) }}</div>
         <div class="self-info">
-            <div>Health {{ game.getMainFrameHealth(game.getIndex()) }}</div>
-            <div>$ {{ game.getCurrency(game.getIndex()) }}</div>
             <div>DECK {{game.getDeck(game.getIndex()).length}}</div>
             <div>DISCARD {{game.getDiscard(game.getIndex()).length}}</div>
         </div>
