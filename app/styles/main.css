@@ -120,6 +120,43 @@ a {
 .card span {
   display: none;
 }
+.card .cost, .card .buy-notice {
+  display: none;
+}
+.zone.to-buy .card .cost {
+  box-sizing: border-box;
+  text-align: center;
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
+  color: white;
+  background: black;
+  font-weight: bold;
+  position: absolute;
+  top: -.5em;
+  right: -.5em;
+  border-radius: 3em;
+}
+
+.zone.to-buy .active .card:hover {
+  cursor: pointer;
+}
+.zone.to-buy .active .card:hover .buy-notice {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -1em;
+  margin-left: -2em;
+  width: 4em;
+  height: 2em;
+  text-align: center;
+  background: black;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+  display: block;
+}
+
 .active .card {
   box-shadow: 3px 3px 3px green;
 }

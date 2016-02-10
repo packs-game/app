@@ -94,6 +94,7 @@
 
 		vm.playCard = function(card) {
 			if (!vm.canPlayHand()) { return console.log('not active player'); }
+			if (!vm.user || !vm.user.id || !vm.user.token || !card || !card.id) { return; }
 			api.playCard(vm.user.id, vm.user.token, card.id);
 			card.playing = true;
 		};
