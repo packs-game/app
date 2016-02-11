@@ -121,6 +121,7 @@
 
 		function adjustPattern(pattern) {
 			var adjusted = pattern.replace('(opponent)', vm.getOppIndex());
+			adjusted = adjusted.replace('(self)', vm.getIndex());
 			return adjusted;
 		}
 
