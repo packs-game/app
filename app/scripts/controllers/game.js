@@ -92,19 +92,56 @@
 		});
 
 
+		vm.isTargeting = false;
+		vm.targetingCard = null;
 		vm.playCard = function(card) {
 			if (!vm.canPlayHand()) { return console.log('not active player'); }
 			if (!vm.user || !vm.user.id || !vm.user.token || !card || !card.id) { return; }
+			if (card.targetZonePattern) {
+				vm.targetingCard = card;
+				vm.isTargeting = true;
+				return;
+			}
 			api.playCard(vm.user.id, vm.user.token, card.id);
 			card.playing = true;
 		};
+		vm.resolveTarget = function(targetCard) {
+			if (!vm.isTargeting || !vm.isValidTarget(targetCard)) { return; }
+
+			api.playCard(vm.user.id, vm.user.token, vm.targetingCard.id, targetCard.id);
+			vm.targetingCard.playing = true;
+			vm.targetingCard = null;
+			vm.isTargeting = false;
+		};
+		vm.cancelTarget = function() {
+			if (!vm.isTargeting) { return; }
+			vm.targetingCard = null;
+			vm.isTargeting = false;
+		};
+
+		function adjustPattern(pattern) {
+			var adjusted = pattern.replace('(opponent)', vm.getOppIndex());
+			return adjusted;
+		}
+
+		vm.isValidTarget = function(card) {
+			if (!vm.isTargeting || !vm.targetingCard) { return; }
+			if (card.zone === adjustPattern(vm.targetingCard.targetZonePattern)) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		};
+
+
 		vm.pass = function() {
 			api.passAction(vm.user.id,vm.user.token);
 			vm.attacks = [];
 			vm.blocks = [];
 		};
 		vm.buy = function(cardId) {
-			if (!vm.canPlayHand()) { return console.log('not active player'); }
+			if (!vm.canPlayHand() || vm.isTargeting) { return console.log('not active player'); }
 			api.buy(vm.user.id,vm.user.token, cardId);
 		};
 		vm.declareAttacks = function() {
@@ -152,7 +189,7 @@
 		vm.canPlayHand = function() {
 			if (!vm.game.data.phases) { return false;}
 			var phase = getPhase();
-			return vm.isActivePlayer() && (phase === 'main' || phase === 'second-main');
+			return vm.isActivePlayer() && (phase === 'main' || phase === 'second-main') && !vm.isTargeting;
 		};
 		vm.canAttack = function() {
 			if (!vm.game.data.phases) { return false;}
@@ -265,6 +302,7 @@
 			return p.name;
 		};
 
+		var $ = window.$;
 		vm.showBlocks = function() {
 			$('.card').attr('style', '');
 			vm.blocks.forEach(function(block){
@@ -274,12 +312,8 @@
 					position: 'absolute',
 					top: (target.offset().top+50)+ 'px',
 					left: (target.offset().left+50)+ 'px',
-				})
+				});
 			});
-		};
-		vm.resetStyles = function(id) {
-			var card = $('.'+id).parent();
-			$('.card').attr('style', '');
 		};
 
 		vm.render = function(card) {

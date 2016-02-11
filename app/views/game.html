@@ -1,13 +1,14 @@
 <div class="gameboard noselect" name="board" ng-controller="GameCtrl as game">
     <div ng-show="game.game.data.started && !game.gameOver()" class="phase-{{game.game.data.phases[game.game.data.activePhase].name}}">
         <div class="top-info">
+            <div ng-show="game.isTargeting" ng-click="game.cancelTarget()">SELECT TARGET</div>
             <div>Turn: {{game.game.data.turn}}</div>
             <div>Active Player: <span>{{game.getActivePlayer().name}}</span></div>
             <div>Active Phase: <span>{{game.game.data.phases[game.game.data.activePhase].name}}</span></div>
         </div>
         <div class="zone to-buy">
             <div ng-repeat="stack in game.toBuy() track by $index">
-                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-click="game.buy(card.id)" ng-class="{active: game.canPlayHand() && card.cost <= game.getCurrency(game.getIndex())}">
+                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-click="game.buy(card.id)" ng-class="{active: game.canPlayHand() && card.cost <= game.getCurrency(game.getIndex()) && !game.isTargeting}">
                 </div>
             </div>
         </div>
@@ -30,7 +31,7 @@
         <div class="zone-container" ng-drop="game.canPlayHand()">
             <div class="zone opp-inplay">
                 <div ng-repeat="stack in game.oppInPlay() track by $index">
-                    <div ng-repeat="card in stack.cards" ng-include="'views/card.html'">
+                    <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-class="{active: game.isValidTarget(card)}">
                     </div>
                 </div>
             </div>
@@ -49,7 +50,7 @@
                         ng-class="{
                             attacking: game.isAttacking(card.id),
                             tapped: game.isAttacking(card.id),
-                            active: (game.canAttack() || game.canBlock()) && !card.tapped
+                            active: (game.canAttack() || (game.canBlock()) && !card.tapped) || game.isValidTarget(card)
                         }"
 
                         ng-drag="(game.canAttack() || game.canBlock()) && !card.tapped"
@@ -59,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="zone hand" ng-class="{active: game.canPlayHand()}">
+        <div class="zone hand" ng-class="{active: game.canPlayHand() && !game.isTargeting}">
             <div ng-repeat="card in game.getPlayerHand() track by $index"
                 ng-include="'views/card.html'"
                 ng-drag="game.canPlayHand()" ng-drag-data="{card: card}"
