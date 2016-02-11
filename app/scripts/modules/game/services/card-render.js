@@ -31,6 +31,7 @@
 			'images/card-template/token-border.png',
 			'images/card-template/action-bg.png',
 			'images/card-template/action-border.png',
+			'images/card-template/top-border.png',
 			'images/card-img.png',
 			'images/card-img2.png',
 			'images/card-img3.png',
@@ -137,6 +138,7 @@
 			}
 			var stage = new createjs.Stage(canvas);
 			typeRender[card.type](stage, card);
+			stage.addChild(imgMap['images/card-template/top-border.png']);
 	
 			stage.update();
 			var data = stage.toDataURL();
