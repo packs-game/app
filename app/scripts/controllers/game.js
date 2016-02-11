@@ -162,7 +162,6 @@
 
 
 
-
 		function getOppIndex() {
 			if (!vm.game.data.players) { return null; }
 			return vm.game.data.players[0].id === vm.user.id ? 1 : 0;
@@ -187,6 +186,40 @@
 			if (!vm.game.data.zones) { return []; }
 			return vm.game.data.zones.zones.shared.zones['to-buy'].stacks;
 		};
+
+		vm.canBuyAnything = function() {
+			var stacks = vm.toBuy();
+			var ret = false;
+			var stackName;
+			for (stackName in stacks) {
+				if (!stacks[stackName].cards.length) { continue; }
+				if (stacks[stackName].cards[0].cost <= vm.getCurrency(vm.getIndex())) {
+					ret = true;
+				}
+			}
+			return ret;
+		};
+
+		vm.inPlayCards = function() {
+			var stacks = vm.inPlay();
+			var ret = [];
+			var stackName;
+			for (stackName in stacks) {
+				ret = ret.concat(stacks[stackName].cards);
+			}
+			return ret;
+		};
+
+		vm.canAnythingAttack = function() {
+			var toRet = false;
+			var cards = vm.inPlayCards();
+			cards.forEach(function(c) {
+				if (!c.tapped && !c.summoningSick) { toRet = true; }
+			});
+			return toRet;
+		};
+
+
 		vm.canPlayHand = function() {
 			if (!vm.game.data.phases) { return false;}
 			var phase = getPhase();
@@ -320,6 +353,31 @@
 
 		vm.render = function(card) {
 			return cardRender.render(card);
+		};
+
+		vm.endTurn = function() {
+
+			var phase = vm.game.data.phases[vm.game.data.activePhase].name;
+			if (phase === 'main') {
+				vm.pass(); //pass main
+				vm.pass(); //pass attacks
+				vm.pass(); //pass second main
+			}
+			if (phase === 'second-main') {
+				vm.pass(); //pass second main
+			}
+		};
+		vm.mustEndTurn = function() {
+			if (!vm.isActivePlayer()) { return false;}
+			if (!vm.getHand(vm.getIndex()).length &&
+				!vm.canBuyAnything() &&
+				(!vm.inPlayCards().length || !vm.canAnythingAttack())) {
+				return true;
+			}
+			return false;
+		};
+		vm.getNextPhaseText = function() {
+			return 'Go to: ' + vm.getNextPhase();
 		};
 	});
 
