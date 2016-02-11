@@ -57,10 +57,10 @@
                         ng-class="{
                             attacking: game.isAttacking(card.id),
                             tapped: game.isAttacking(card.id),
-                            active: (game.canAttack() || (game.canBlock()) && !card.tapped) || game.isValidTarget(card)
+                            active: ((game.canAttack() && !card.summoningSick) || (game.canBlock()) && !card.tapped) || game.isValidTarget(card)
                         }"
 
-                        ng-drag="(game.canAttack() || game.canBlock()) && !card.tapped"
+                        ng-drag="((game.canAttack() && !card.summoningSick) || game.canBlock()) && !card.tapped"
                         ng-drag-data="{card: card}" ng-center-anchor="true"
                         class="card-container">
                     </div>

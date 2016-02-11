@@ -313,6 +313,7 @@
 					position: 'absolute',
 					top: (target.offset().top+50)+ 'px',
 					left: (target.offset().left+50)+ 'px',
+					zIndex: 10
 				});
 			});
 		};
