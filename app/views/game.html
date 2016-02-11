@@ -1,4 +1,11 @@
-<div class="gameboard noselect" name="board" ng-controller="GameCtrl as game">
+<div class="gameboard noselect" name="board">
+    <style>
+    html, body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+    </style>
     <div ng-show="game.game.data.started && !game.gameOver()" class="phase-{{game.game.data.phases[game.game.data.activePhase].name}}">
         <div class="top-info">
             <div ng-show="game.isTargeting" ng-click="game.cancelTarget()">SELECT TARGET</div>

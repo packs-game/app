@@ -7,7 +7,7 @@ angular.module('packsApp').factory('api', ['$http', 'allServices', function($htt
 
 	var services;
 
-	allServices.get().then(function(s){ services = s; });
+	var serviceReq = allServices.get().then(function(s){ services = s; });
 	
 	var API = {
 		login: function(username, password) {
@@ -53,7 +53,11 @@ angular.module('packsApp').factory('api', ['$http', 'allServices', function($htt
 		},
 		declareBlocks: function(id,token,blocks) {
 			return $http.post(services.game + '/game/block', {id: id, token: token, blocks: blocks}, config);
-		}
+		},
+		getAllCards: function() {
+			return $http.get(services.game + '/cards', config);
+		},
+		ready: serviceReq.then
 	};
 
 	return API;

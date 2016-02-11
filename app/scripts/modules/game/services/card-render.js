@@ -9,64 +9,60 @@
 		canvas.style = 'display: none;';
 		document.body.appendChild(canvas);
 
+		var onReady = [];
 		var ready = false;
 
-		function loaded() {
-			toLoad++;
-			if (toLoad === totalLoad) {
+		var loaded = 0;
+		function checkLoaded() {
+			loaded++;
+			if (loaded === imgs.length) {
 				ready = true;
 				onReady.forEach(render.call);
 				onReady = [];
 			}
 		}
-		var toLoad = 0;
-		var totalLoad = 9;
-		var bg = new createjs.Bitmap('images/background.png');
-		var bg2 = new createjs.Bitmap('images/typebg.png');
-		var bg22 = new createjs.Bitmap('images/type2bg.png');
-		var bg23 = new createjs.Bitmap('images/type3bg.png');
-		var img = new createjs.Bitmap('images/card-img.png');
-		var img2 = new createjs.Bitmap('images/card-img2.png');
-		var overlay = new createjs.Bitmap('images/overlay.png');
-		var overlay2 = new createjs.Bitmap('images/type2-overlay.png');
-		var overlay3 = new createjs.Bitmap('images/type3-overlay.png');
-		bg.image.onload = loaded;
-		bg2.image.onload = loaded;
-		bg22.image.onload = loaded;
-		bg23.image.onload = loaded;
-		img.image.onload = loaded;
-		img2.image.onload = loaded;
-		overlay.image.onload = loaded;
-		overlay2.image.onload = loaded;
-		overlay3.image.onload = loaded;
+		var imgs = [
+			'images/card-template/background.png',
+			'images/card-template/currency-bg.png',
+			'images/card-template/currency-border.png',
+			'images/card-template/program-bg.png',
+			'images/card-template/program-border.png',
+			'images/card-template/token-bg.png',
+			'images/card-template/token-border.png',
+			'images/card-template/action-bg.png',
+			'images/card-template/action-border.png',
+			'images/card-img.png',
+			'images/card-img2.png',
+			'images/card-img3.png',
+			'images/card-img4.png'
+		];
+		var imgMap = {};
+		imgs.forEach(function(img){
+			imgMap[img] = new createjs.Bitmap(img);
+			imgMap[img].image.onload = checkLoaded;
+		});
 
-		var onReady = [];
+		function addBackground(stage) {
+			stage.addChild(imgMap['images/card-template/background.png']);
+		}
 
-		function render(card, cb) {
-			var name = card.name;
-			var text = card.text;
-
-			if (!ready) {
-				return onReady.push([card,cb]);
-			}
-			var stage = new createjs.Stage(canvas);
-			img2.x = img.x = 10;
-			img2.y = img.y = 48;
-			
+		function addText(stage, card) {
 			var titleTxt = new createjs.Text('', '20px Arial', 'black');
+			titleTxt.name = 'title-text';
 			titleTxt.x = 90;
 			titleTxt.y = 30;
 			titleTxt.textBaseline = 'alphabetic';
 			titleTxt.textAlign = 'center';
 
 			var cardText = new createjs.Text('', '14px Arial', 'black');
+			cardText.name = 'card-text';
 			cardText.x = 90;
 			cardText.y = 230;
 			cardText.textBaseline = 'alphabetic';
 			cardText.textAlign = 'center';
 			
-			cardText.text = text;
-			titleTxt.text = name;
+			cardText.text = card.text;
+			titleTxt.text = card.name;
 
 			if (cardText.text && typeof cardText.text === 'string') {
 				if (cardText.text.split('\n').length === 2) {
@@ -79,39 +75,69 @@
 			} else {
 				cardText.y = 225;
 			}
-
-			stage.addChild(bg);
-
-			if (card.type === 'token') {
-				cardText.text = card.power;
-				cardText.font = 'bold 40px Arial';
-				stage.addChild(bg22);
-			} else if (card.type === 'currency') {
-				stage.addChild(bg23);
-			}else {
-				stage.addChild(bg2);
-			}
-
-
-			if (card.type === 'currency') {
-				stage.addChild(img2);
-			} else {
+			stage.addChild(titleTxt,cardText);
+		}
+		var typeRender = {
+			currency: function(stage, card) {
+				addBackground(stage);
+				stage.addChild(imgMap['images/card-template/currency-bg.png']);
+				
+				var img = imgMap['images/card-img2.png'];
+				img.x = 10;
+				img.y = 48;
 				stage.addChild(img);
-			}
-			
-			if (card.type === 'token') {
-				stage.addChild(overlay2);
-			}
-			else if (card.type === 'currency') {
-				stage.addChild(overlay3);
-			}
-			else {
-				stage.addChild(overlay);
-			}
-			
-			stage.addChild(titleTxt);
-			stage.addChild(cardText);
+				stage.addChild(imgMap['images/card-template/currency-border.png']);
 
+			},
+			program: function(stage, card) {
+				addBackground(stage);
+				stage.addChild(imgMap['images/card-template/program-bg.png']);
+				
+				var img = imgMap['images/card-img3.png'];
+				img.x = 10;
+				img.y = 48;
+				stage.addChild(img);
+				stage.addChild(imgMap['images/card-template/program-border.png']);
+				addText(stage,card);
+			},
+			token: function(stage, card) {
+				addBackground(stage);
+				stage.addChild(imgMap['images/card-template/token-bg.png']);
+				
+				var img = imgMap['images/card-img.png'];
+				img.x = 10;
+				img.y = 48;
+
+				stage.addChild(img);
+				stage.addChild(imgMap['images/card-template/token-border.png']);
+				
+				addText(stage,card);
+				
+				var txt = stage.getChildByName('card-text');
+				txt.text = card.power;
+				txt.font = 'bold 40px Arial';
+
+			},
+			action: function(stage, card) {
+				addBackground(stage);
+				stage.addChild(imgMap['images/card-template/action-bg.png']);
+				
+				var img = imgMap['images/card-img4.png'];
+				img.x = 10;
+				img.y = 48;
+				stage.addChild(img);
+				stage.addChild(imgMap['images/card-template/action-border.png']);
+				addText(stage,card);
+			}
+		};
+
+		function render(card, cb) {
+			if (!ready) {
+				return onReady.push([card,cb]);
+			}
+			var stage = new createjs.Stage(canvas);
+			typeRender[card.type](stage, card);
+	
 			stage.update();
 			var data = stage.toDataURL();
 			if (cb) { cb(data); }

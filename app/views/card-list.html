@@ -1,0 +1,8 @@
+<div class="card-list">
+	<h2>Card List</h2>
+    <hr />
+	<div ng-include src="'/views/menu.html'"></div>
+	<div ng-repeat="card in cardList.cards" class="card">
+		<img src="{{cardList.renderCard(card)}}" />
+	</div>
+</div>

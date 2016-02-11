@@ -46,6 +46,11 @@ angular
 				controller: 'GameCtrl',
 				controllerAs: 'game'
 			})
+			.when('/card-list', {
+				templateUrl: '/views/card-list.html',
+				controller: 'CardListCtrl',
+				controllerAs: 'cardList'
+			})
 			.otherwise({
 				redirectTo: '/'
 			});
