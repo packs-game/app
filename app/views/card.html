@@ -1,6 +1,7 @@
 <div class="card" ng-class="{tapped: card.tapped}" ng-click="game.resolveTarget(card)">
 	<div class="cost">{{card.cost}}</div>
 	<div class="buy-notice">Buy</div>
+	<div class="copies">x{{card.copies}}</div>
 	<img src="{{game.render(card)}}" style="width: 7.5em; height: 9.5em;"/>
 	<span class="{{card.id}}"></span>
 </div>

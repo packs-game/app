@@ -6,6 +6,7 @@
 		<div ng-repeat="card in cardList.cards" class="card">
 			<img src="{{cardList.renderCard(card).img}}" />
 			<span class="tier">{{card.tier}}</span>
+			<div class="copies" ng-show="card.tier">x{{cardList.tierMap[card.tier]}}</div>
 			<div class="cost" ng-show="card.cost" style="font-size: 24px; right: 0;">{{card.cost}}</div>
 		</div>
 	</div>

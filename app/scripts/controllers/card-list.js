@@ -26,4 +26,6 @@ angular.module('packsApp')
 		};
 
 		vm.renderer = cardRender;
+
+		vm.tierMap = [null,4,3,2];
 	});

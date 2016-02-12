@@ -132,7 +132,8 @@ a {
 .card span {
   display: none;
 }
-.card .cost, .card .buy-notice {
+.card .cost, .card .buy-notice,
+.card .cost, .card .copies {
   display: none;
 }
 .card-list .card .cost,
@@ -153,6 +154,22 @@ a {
     font-size: 1.5em;
     text-align: center;
     background-position: -.125em;
+}
+.card-list .card .copies,
+.zone.to-buy .card .copies {
+    box-sizing: border-box;
+    display: block;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    bottom: 4em;
+    right: -.5em;
+    text-shadow: 4px 4px 1px black;
+    font-size: 1em;
+    text-align: center;
 }
 
 .zone.to-buy .active .card:hover {
@@ -249,4 +266,8 @@ a {
   left: 0;
   color: white;
   display: block;
+}
+.card-list .card .copies {
+  color: black;
+  text-shadow: none;
 }
