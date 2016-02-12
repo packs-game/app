@@ -21,5 +21,9 @@ angular.module('packsApp')
 			});
 		});
 
-		vm.renderCard = cardRender.render;
+		vm.renderCard = function(card) {
+			return cardRender.render(card);
+		};
+
+		vm.renderer = cardRender;
 	});

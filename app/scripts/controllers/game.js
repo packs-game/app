@@ -352,7 +352,7 @@
 		};
 
 		vm.render = function(card) {
-			return cardRender.render(card);
+			return cardRender.render(card).img;
 		};
 
 		vm.endTurn = function() {

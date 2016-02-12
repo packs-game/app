@@ -2,7 +2,11 @@
 	<h2>Card List</h2>
     <hr />
 	<div ng-include src="'/views/menu.html'"></div>
-	<div ng-repeat="card in cardList.cards" class="card">
-		<img src="{{cardList.renderCard(card)}}" />
+	<div>
+		<div ng-repeat="card in cardList.cards" class="card">
+			<img src="{{cardList.renderCard(card).img}}" />
+			<span class="tier">{{card.tier}}</span>
+			<div class="cost" ng-show="card.cost" style="font-size: 24px; right: 0;">{{card.cost}}</div>
+		</div>
 	</div>
 </div>

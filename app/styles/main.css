@@ -135,6 +135,7 @@ a {
 .card .cost, .card .buy-notice {
   display: none;
 }
+.card-list .card .cost,
 .zone.to-buy .card .cost {
     box-sizing: border-box;
     display: block;
@@ -240,4 +241,12 @@ a {
 .opp-health {
   top: .5em;
   left: .25em;
+}
+.card-list .card .tier {
+  font-size: 1em;
+  position: absolute;
+  bottom: -8em;
+  left: 0;
+  color: white;
+  display: block;
 }

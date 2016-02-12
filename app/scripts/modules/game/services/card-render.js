@@ -40,7 +40,7 @@
 		var imgMap = {};
 		imgs.forEach(function(img){
 			imgMap[img] = new createjs.Bitmap(img);
-			imgMap[img].image.onload = checkLoaded;
+			imgMap[img].image.onload = checkLoaded.apply(this);
 		});
 
 		function addBackground(stage) {
@@ -132,9 +132,11 @@
 			}
 		};
 
-		function render(card, cb) {
+		function render(card, cb, retObj) {
+			if (!retObj) { retObj = {img: ''} };
 			if (!ready) {
-				return onReady.push([card,cb]);
+				onReady.push([card,cb,retObj]);
+				return retObj;
 			}
 			var stage = new createjs.Stage(canvas);
 			typeRender[card.type](stage, card);
@@ -142,12 +144,14 @@
 	
 			stage.update();
 			var data = stage.toDataURL();
-			if (cb) { cb(data); }
-			return data;
+			retObj.img = data;
+			if (cb) { cb(retObj); }
+			return retObj;
 		}
 
 		return {
-			render: render
+			render: render,
+			ready: ready
 		};
 	}]);
 }());
