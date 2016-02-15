@@ -1,4 +1,23 @@
 <div class="main-screen">
-	<div ng-include src="'/views/menu.html'"></div>
-	<div ng-include src="'/views/matchmaker.html'" ng-show="main.user.authed"></div>
+	<div class="menu-list">
+	    <ul class="nav">
+	    	<li ng-show="main.user.authed">
+	    		<div ng-include src="'/views/matchmaker.html'" ng-show="main.user.authed"></div>
+	    	</li>
+	        <li ng-show="!main.user.authed">
+	            <a ng-href="/login">Login</a>
+	        </li>
+	        <li ng-show="!main.user.authed">
+	            <a ng-href="/register">Register</a>
+	        </li>
+
+	        <li ng-show="main.user.authed">
+	            <a ng-href="/profile">Profile</a>
+	        </li>
+	        <li>
+	            <a ng-href="/card-list">Card List</a>
+	        </li>
+
+	    </ul>
+	</div>
 </div>

@@ -1,6 +1,6 @@
 <div ng-controller="MatchmakingCtrl as mm" class="matchmaker">
     <span ng-if="mm.searching">Searching</span>
 	<br /><br />
-    <button ng-click="mm.search()" ng-if="!mm.searching" ng-disabled="mm.sendingMessage">Find Game</button>
-    <button ng-click="mm.cancel()" ng-if="mm.searching" ng-disabled="mm.sendingMessage">Cancel Search</button>
+    <a ng-click="mm.search()" ng-if="!mm.searching" ng-disabled="mm.sendingMessage">Find Game</a>
+    <a ng-click="mm.cancel()" ng-if="mm.searching" ng-disabled="mm.sendingMessage">Cancel Search</a>
 </div>
