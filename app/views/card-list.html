@@ -1,7 +1,4 @@
-<div class="card-list">
-	<h2>Card List</h2>
-    <hr />
-	<div ng-include src="'/views/menu.html'"></div>
+<div class="card-list-screen">
 	<div>
 		<div ng-repeat="card in cardList.cards" class="card">
 			<img src="{{cardList.renderCard(card).img}}" />
@@ -10,4 +7,5 @@
 			<div class="cost" ng-show="card.cost" style="font-size: 24px; right: 0;">{{card.cost}}</div>
 		</div>
 	</div>
+	<a href="/" class="back-btn">Back</a>
 </div>

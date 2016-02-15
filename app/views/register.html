@@ -1,13 +1,15 @@
-<div ng-include src="'/views/menu.html'"></div>
-<div>
-	<h2>Register</h2>
-    <form ng-if="!register.user.authed" ng-submit="register.register()">
-        Username: <input name="username" type="text" ng-model="register.username"/>
-        <br />
-        Password: <input name="password" type="password" ng-model="register.password"/>
-        <br />
-        <input type="submit" value="Register" />
-        <br />
-        <span> {{register.user.error}} </span>
-    </form>
+<div class="register-screen">
+    <div class="register-form">
+    	<h2>Register</h2>
+        <form ng-if="!register.user.authed" ng-submit="register.register()">
+            Username: <input name="username" type="text" ng-model="register.username"/>
+            <br />
+            Password: <input name="password" type="password" ng-model="register.password"/>
+            <br />
+            <input type="submit" value="Register" />
+            <br />
+            <span> {{register.user.error}} </span>
+        </form>
+    </div>
+    <a href="/" class="back-btn">Back</a>
 </div>

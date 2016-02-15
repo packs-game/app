@@ -1,13 +1,15 @@
-<div ng-include src="'/views/menu.html'"></div>
-<div>
-    <h2>Login</h2>
-    <form login ng-if="!login.user.authed" ng-submit="login.login()">
-        Username: <input name="username" type="text" ng-model="login.username"/>
-        <br />
-        Password: <input name="password" type="password" ng-model="login.password"/>
-        <br />
-        <input type="submit" value="Login" />
-        <br />
-        <span> {{login.user.error}} </span>
-    </form>
+<div class="login-screen">
+    <div class="login-form">
+        <h2>Login</h2>
+        <form login ng-if="!login.user.authed" ng-submit="login.login()" autocomplete="off">
+            Username: <input name="username" type="text" ng-model="login.username" placeholder="Username"/>
+            <br />
+            Password: <input name="password" type="password" ng-model="login.password" placeholder="password"/>
+            <br />
+            <input type="submit" value="Login" />
+            <br />
+            <span> {{login.user.error}} </span>
+        </form>
+    </div>
+    <a href="/" class="back-btn">Back</a>
 </div>

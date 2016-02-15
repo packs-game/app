@@ -1,6 +1,4 @@
-<div ng-include src="'/views/menu.html'"></div>
-<div>
-	<h2>Profile</h2>
+<div class="profile-screen">
 	<div ng-show="vm.user.authed">
 	    {{vm.user.username}}
 	    <br />
@@ -13,4 +11,5 @@
 	<div ng-show="!vm.user.authed">
 		Not Authed.
 	</div>
+	<a href="/" class="back-btn">Back</a>
 </div>

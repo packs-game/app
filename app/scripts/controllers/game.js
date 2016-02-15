@@ -30,9 +30,10 @@
 		'phase:entered'
 	];
 
-	angular.module('packsApp').controller('GameCtrl', function(socket, user, $scope, game, api, cardRender) {
+	angular.module('packsApp').controller('GameCtrl', function(socket, user, $scope, game, api, cardRender, $location) {
 		var vm = this;
 		vm.user = user.get();
+		if (!vm.user.authed) { return $location.path('/'); }
 		vm.data = {};
 		window.GAME = vm.game = game.get();
 
