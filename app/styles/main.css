@@ -271,3 +271,14 @@ a {
   color: black;
   text-shadow: none;
 }
+
+.summoning-sick::before {
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .3);
+}
