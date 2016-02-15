@@ -91,3 +91,10 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+
+.game-over-screen {
+	text-align: center;
+	color: white;
+	font-size: 40px;
+	font-weight: bold;
+}

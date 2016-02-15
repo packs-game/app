@@ -85,10 +85,10 @@
             <div>DISCARD {{game.getDiscard(game.getIndex()).length}}</div>
         </div>
     </div>
-    <div ng-show="game.gameOver()">
+    <div ng-show="game.gameOver()" class="game-over-screen">
         <strong ng-show="game.isWinner()">Victory!</strong>
         <strong ng-show="!game.isWinner()">Defeat</strong>
+        <a href="/" class="back-btn">Back</a>
     </div>
     <!--<pre>{{game.game.data | json}}</pre>-->
 </div>
-<div ng-include="'/views/menu.html'" ng-show="!game.game.data.started || game.gameOver()"></div>
