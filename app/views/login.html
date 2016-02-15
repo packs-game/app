@@ -2,13 +2,13 @@
     <div class="login-form">
         <h2>Login</h2>
         <form login ng-if="!login.user.authed" ng-submit="login.login()" autocomplete="off">
-            Username: <input name="username" type="text" ng-model="login.username" placeholder="Username"/>
+            <input name="username" type="text" ng-model="login.username" placeholder="Username"/>
             <br />
-            Password: <input name="password" type="password" ng-model="login.password" placeholder="password"/>
+            <input name="password" type="password" ng-model="login.password" placeholder="password"/>
             <br />
             <input type="submit" value="Login" />
             <br />
-            <span> {{login.user.error}} </span>
+            <span class="err"> {{login.user.error}} </span>
         </form>
     </div>
     <a href="/" class="back-btn">Back</a>
