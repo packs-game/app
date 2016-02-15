@@ -310,6 +310,11 @@ h2 {
   line-height: 2em;
   font-size: 20px;
 }
+input[type=text], input[type=password] {
+  background: rgba(255,255,255,0.3);
+  padding: .25em;
+  color: white;
+}
 
 .err {
   color: red;
