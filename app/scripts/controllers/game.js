@@ -222,22 +222,20 @@
 
 
 		vm.canPlayHand = function() {
-			if (!vm.game.data.phases) { return false;}
 			var phase = getPhase();
 			return vm.isActivePlayer() && (phase === 'main' || phase === 'second-main') && !vm.isTargeting;
 		};
 		vm.canAttack = function() {
-			if (!vm.game.data.phases) { return false;}
 			var phase = getPhase();
-			return vm.isActivePlayer() && (phase === 'declare-attackers');
+			return vm.isActivePlayer() && (phase === 'declare-attackers' || phase === 'main');
 		};
 		vm.canBlock = function() {
-			if (!vm.game.data.phases) { return false;}
 			var phase = getPhase();
 			return vm.isActivePlayer() && (phase === 'declare-defenders');
 		};
 
 		function getPhase() {
+			if (!vm.game.data.phases) { return ''; }
 			return vm.game.data.phases[vm.game.data.activePhase].name;
 		}
 
@@ -358,7 +356,7 @@
 
 		vm.endTurn = function() {
 
-			var phase = vm.game.data.phases[vm.game.data.activePhase].name;
+			var phase = getPhase();
 			if (phase === 'main') {
 				vm.pass(); //pass main
 				vm.pass(); //pass attacks
@@ -378,7 +376,9 @@
 			return false;
 		};
 		vm.getNextPhaseText = function() {
-			return 'Go to: ' + vm.getNextPhase();
+			var phase = getPhase();
+			var txt = 'Go to: ' + vm.getNextPhase();
+			return txt;
 		};
 	});
 

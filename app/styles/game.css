@@ -1,0 +1,249 @@
+.gameboard {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding-top: 4em;
+}
+
+.top-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #3d3d3d;
+  color: white;
+  height: 2.5em;
+}
+.top-info > div {
+  float: right;
+  margin: .5em 1em;
+}
+.button-container {
+  position: absolute;
+  top: 50%;
+  right: 9em;
+  padding: 1em;
+  background: #3d3d3d;
+  z-index: 100;
+}
+
+.zone.to-buy {
+  box-sizing: border-box;
+  position: absolute;
+  width: 9em;
+  background: #3d3d3d;
+  height: 100%;
+  right: 0;
+  top: 2em;
+  padding-top: 4em;
+  margin-right: 0;
+}
+
+[ng-drop].drag-enter {
+  border: 2px dashed;
+}
+.zone {
+  box-sizing: border-box;
+  clear: both;
+  text-align: center;
+  margin-right: 9em;
+}
+.zone > div {
+  display: inline-block;
+}
+
+.opp-info {
+  color: white;
+  position: absolute;
+  top: 3em;
+  left: 0;
+}
+.self-info {
+  color: white;
+  position: absolute;
+  left: 0;
+  bottom: 1em;
+}
+
+/*
+  fix to only be during the attack phase
+ */
+.phase-declare-attackers .zone.inplay .dragging.drag-over .card {
+  transform: rotate(90deg);
+}
+
+.zone.hand .dragging.drag-over .card {
+  transform: scale(1.25);
+  transition: transform .25s;
+}
+
+.card-container.attacking {
+    top: -10em;
+    position: relative;
+}
+.dragging .card {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+.card {
+  transform: rotate(0deg) scale(1);
+  transition: transform 1s;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 7.5em;
+  height: 9.5em;
+  margin: .5em;
+  position: relative;
+}
+.tapped {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  margin: 1em 1.5em;
+}
+
+
+.card span {
+  display: none;
+}
+.card .cost, .card .buy-notice,
+.card .cost, .card .copies {
+  display: none;
+}
+.card-list-screen .card .cost,
+.zone.to-buy .card .cost {
+    box-sizing: border-box;
+    display: block;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    bottom: 1em;
+    right: -.5em;
+    background-image: url('/images/card-img2.png');
+    background-size: cover;
+    text-shadow: 4px 4px 1px black;
+    font-size: 1.5em;
+    text-align: center;
+    background-position: -.125em;
+}
+.card-list-screen .card .copies,
+.zone.to-buy .card .copies {
+    box-sizing: border-box;
+    display: block;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    bottom: 4em;
+    right: -.5em;
+    text-shadow: 4px 4px 1px black;
+    font-size: 1em;
+    text-align: center;
+}
+
+.zone.to-buy .active .card:hover {
+  cursor: pointer;
+}
+.zone.to-buy .active .card:hover .buy-notice {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -1em;
+  margin-left: -2em;
+  width: 4em;
+  height: 2em;
+  text-align: center;
+  background: rgba(0,0,0,.7);
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+  display: block;
+}
+
+.active .card {
+  box-shadow: 0 0 1em green;
+}
+
+.zone.hand {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+}
+.zone.opp-inplay {
+  background: #ccc;
+  width: 100%;
+  min-height: 11em;
+}
+.zone.inplay {
+  background: #ccc;
+  min-height: 11em;
+}
+.zone.redzone {
+  background: red;
+  min-height: 11em;
+}
+.self-currency, .opp-currency {
+  box-sizing: border-box;
+  position: absolute;
+  background-image: url('/images/card-img2.png');
+  background-size: cover;
+  width: 1.7em;
+  height: 1.4em;
+  margin: 0;
+  text-align: center;
+  color: white;
+  text-shadow: 4px 4px 1px black;
+  line-height: 1.4em;
+  font-size: 5em;
+}
+.self-currency {
+  right: 0;
+  bottom: .25em;
+}
+.opp-currency {
+  right: .65em;
+  top: .6em;
+  font-size: 3em;
+}
+.self-health, .opp-health {
+  box-sizing: border-box;
+  position: absolute;
+  background-image: url('/images/health.png');
+  background-size: cover;
+  width: 2em;
+  height: 1.8em;
+  margin: 0;
+  text-align: center;
+  color: white;
+  text-shadow: 4px 4px 1px black;
+  line-height: 1.7em;
+  font-size: 4em;
+}
+.self-health {
+  left: .25em;
+  bottom: .25em;
+}
+.opp-health {
+  top: .5em;
+  left: .25em;
+}
+.hand-drop-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: white;
+  background: rgba(0,0,0,.5);
+}
