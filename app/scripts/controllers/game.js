@@ -30,7 +30,7 @@
 		'phase:entered'
 	];
 
-	angular.module('packsApp').controller('GameCtrl', function(socket, user, $scope, game, api, cardRender, $location) {
+	angular.module('packsApp').controller('GameCtrl', function(socket, user, $scope, game, api, cardRender, $location, $rootScope, $timeout) {
 		var vm = this;
 		vm.user = user.get();
 		if (!vm.user.authed) { return $location.path('/'); }
@@ -91,7 +91,6 @@
 				});
 			}
 		});
-
 
 		vm.isTargeting = false;
 		vm.targetingCard = null;
@@ -227,7 +226,7 @@
 		};
 		vm.canAttack = function() {
 			var phase = getPhase();
-			return vm.isActivePlayer() && (phase === 'declare-attackers' || phase === 'main');
+			return vm.isActivePlayer() && (phase === 'declare-attackers');
 		};
 		vm.canBlock = function() {
 			var phase = getPhase();
@@ -380,6 +379,24 @@
 			var txt = 'Go to: ' + vm.getNextPhase();
 			return txt;
 		};
+
+		vm.dragging = false;
+		$rootScope.$on('draggable:start', function(ev, data) {
+			if (!data || !data.data || !data.data.card) { return; }
+			if (data.data.card.zone === 'hand') {
+				vm.dragging = true;
+			}
+			$rootScope.$digest();
+		});
+		$rootScope.$on('draggable:end', function(ev, data) {
+			if (!data || !data.data || !data.data.card) { return; }
+			if (data.data.card.zone === 'hand') {
+				$timeout(function() {
+					vm.dragging = false;
+					$rootScope.$digest();
+				},0);
+			}
+		});
 	});
 
 }());

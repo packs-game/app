@@ -39,7 +39,7 @@
   margin-right: 0;
 }
 
-[ng-drop].drag-enter {
+[ng-drop].drag-enter:not(.hand-drop-container) {
   border: 2px dashed;
 }
 .zone {
@@ -238,12 +238,19 @@
   left: .25em;
 }
 .hand-drop-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  color: white;
-  background: rgba(0,0,0,.5);
+    position: absolute;
+    bottom: 3em;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: white;
+    background: rgba(0,0,0,.7);
+    line-height: 20em;
+    vertical-align: bottom;
+    font-size: 40px;
+    opacity: 0;
+}
+.hand-drop-container.drag-enter {
+    opacity: 1;
 }

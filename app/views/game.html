@@ -8,6 +8,7 @@
     </style>
     <div ng-show="game.game.data.started && !game.gameOver()" class="phase-{{game.game.data.phases[game.game.data.activePhase].name}}">
         <div class="top-info">
+            Drag: {{game.dragging}}
             <div ng-show="game.isTargeting" ng-click="game.cancelTarget()">SELECT TARGET</div>
             <div>Turn: {{game.game.data.turn}}</div>
             <div>Active Player: <span>{{game.getActivePlayer().name}}</span></div>
@@ -36,7 +37,7 @@
             <div>HAND {{game.getHand(game.getOppIndex()).length}}</div>
             <div>DISCARD {{game.getDiscard(game.getOppIndex()).length}}</div>
         </div>
-        <div class="zone-container" ng-drop="game.canPlayHand()">
+        <div class="zone-container">
             <div class="zone opp-inplay">
                 <div ng-repeat="stack in game.oppInPlay() track by $index">
                     <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-class="{active: game.isValidTarget(card)}">
@@ -68,11 +69,17 @@
                 </div>
             </div>
         </div>
+        <div class="hand-drop-container"
+            ng-drop="game.canPlayHand()"
+            ng-show="game.dragging"
+            ng-drop-success="game.playCard($data.card, $event)">
+            Play Card
+        </div>
         <div class="zone hand" ng-class="{active: game.canPlayHand() && !game.isTargeting}">
             <div ng-repeat="card in game.getPlayerHand() track by $index"
                 ng-include="'views/card.html'"
-                ng-drag="game.canPlayHand()" ng-drag-data="{card: card}"
-                ng-drag-success="game.playCard($data.card, $event)"
+                ng-drag="game.canPlayHand()"
+                ng-drag-data="{card: card}"
                 ng-center-anchor="true"
                 class="card-container"
                 ng-class="{hide: card.playing}">
