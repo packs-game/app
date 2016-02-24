@@ -31,11 +31,22 @@
 			'images/card-template/token-border.png',
 			'images/card-template/action-bg.png',
 			'images/card-template/action-border.png',
+			'images/card-template/ai-bg.png',
+			'images/card-template/ai-border.png',
 			'images/card-template/top-border.png',
 			'images/card-img.png',
 			'images/card-img2.png',
 			'images/card-img3.png',
-			'images/card-img4.png'
+			'images/card-img4.png',
+			'images/cards/einstein.png',
+			'images/cards/teller.png',
+			'images/cards/book.png',
+			'images/cards/bolt.png',
+			'images/cards/multibolt.png',
+			'images/cards/bigbolt.png',
+			'images/cards/dome.png',
+			'images/cards/enhance.png',
+			'images/cards/repair.png'
 		];
 		var imgMap = {};
 		imgs.forEach(function(img){
@@ -115,20 +126,52 @@
 				addText(stage,card);
 				
 				var txt = stage.getChildByName('card-text');
-				txt.text = card.power;
-				txt.font = 'bold 40px Arial';
+				txt.text = card.power + '/' + card.toughness;
+				txt.font = 'bold 30px Arial';
+				txt.x = 150;
+				txt.y = 240;
 
 			},
 			action: function(stage, card) {
 				addBackground(stage);
 				stage.addChild(imgMap['images/card-template/action-bg.png']);
 				
-				var img = imgMap['images/card-img4.png'];
+				var img = imgMap['images/' + (card.img ? 'cards/' + card.img : 'card-img4.png')];
 				img.x = 10;
 				img.y = 48;
 				stage.addChild(img);
 				stage.addChild(imgMap['images/card-template/action-border.png']);
 				addText(stage,card);
+			},
+			ai: function(stage, card) {
+				addBackground(stage);
+				stage.addChild(imgMap['images/card-template/ai-bg.png']);
+				
+				var img = imgMap['images/cards/'+card.img];
+				img.x = 10;
+				img.y = 48;
+
+				stage.addChild(img);
+				stage.addChild(imgMap['images/card-template/ai-border.png']);
+				
+				addText(stage,card);
+				var title = stage.getChildByName('title-text');
+				title.color = 'white';
+
+				var txt = stage.getChildByName('card-text');
+				txt.color = 'white';
+				txt.textAlign = 'left';
+				txt.x = 15;
+				
+				
+				var newTxt = new createjs.Text('', 'bold 30px Arial', 'white');
+				newTxt.name = 'aipt-text';
+				newTxt.text = card.power + '/' + card.toughness;
+				newTxt.textBaseline = 'alphabetic';
+				newTxt.textAlign = 'center';
+				newTxt.x = 145;
+				newTxt.y = 235;
+				stage.addChild(newTxt);
 			}
 		};
 

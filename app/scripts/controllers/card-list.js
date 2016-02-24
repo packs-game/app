@@ -16,7 +16,8 @@ angular.module('packsApp')
 				vm.cards.push({
 					type: 'token',
 					name: 'some token name',
-					power: 4
+					power: 4,
+					toughness: 6
 				});
 			});
 		});
