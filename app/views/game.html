@@ -22,10 +22,9 @@
         </div>
         
         <div class="button-container">
-            <button ng-click="game.pass()" ng-show="game.isActivePlayer() && !game.mustEndTurn()">{{ game.getNextPhaseText() }}</button>
-            <button ng-click="game.declareAttacks()" ng-show="game.isActivePlayer() && game.attacks.length && !game.mustEndTurn()">Declare Attacks</button>
-            <button ng-click="game.declareBlocks()" ng-show="game.isActivePlayer() && game.blocks.length && !game.mustEndTurn()">Declare Blockers</button>
-            <button ng-click="game.endTurn()" ng-show="game.mustEndTurn()">End Turn</button>
+            <button ng-click="game.buttonAction()" ng-show="game.isActivePlayer()" ng-class="{active: game.mustEndTurn()}">
+                {{game.buttonText()}}
+            </button>
         </div>
 
         <div class="opp-currency">{{ game.getCurrency(game.getOppIndex()) }}</div>

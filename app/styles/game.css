@@ -254,3 +254,7 @@
 .hand-drop-container.drag-enter {
     opacity: 1;
 }
+
+button.active {
+  background: green;
+}
