@@ -13,12 +13,6 @@ angular.module('packsApp')
 		api.ready(function() {
 			api.getAllCards().then(function(res){
 				vm.cards = res.data;
-				vm.cards.push({
-					type: 'token',
-					name: 'some token name',
-					power: 4,
-					toughness: 6
-				});
 			});
 		});
 
