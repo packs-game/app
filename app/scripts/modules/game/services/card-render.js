@@ -47,7 +47,8 @@
 			'images/cards/dome.png',
 			'images/cards/enhance.png',
 			'images/cards/repair.png',
-			'images/cards/khan.png'
+			'images/cards/khan.png',
+			'images/cards/vlad.png'
 		];
 		var imgMap = {};
 		imgs.forEach(function(img){
