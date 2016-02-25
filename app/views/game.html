@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="zone redzone" ng-drop="game.canAttack()" ng-drop-success="game.dropRedzone($data,$event)">
-                <div ng-repeat="stack in game.redzone() track by $index">
+                <div ng-repeat="stack in game.redzone() track by $index ">
                     <div ng-repeat="card in stack.cards"
                         ng-include="'views/card.html'"
                         ng-drop="game.canBlock()"

@@ -83,7 +83,7 @@
 			if (!vm.game.data.zones) {
 				return [];
 			}
-			return vm.game.data.zones.zones.shared.zones.battle.stacks;
+			return orderStacks(vm.game.data.zones.zones.shared.zones.battle.stacks);
 		};
 
 		vm.getActivePlayer = function() {
@@ -206,17 +206,40 @@
 		vm.getOppIndex = getOppIndex;
 		vm.getIndex = getIndex;
 
+		function orderStacks(stacks) {
+			var stacksArr = [];
+			for (var name in stacks) {
+				stacksArr.push(stacks[name]);
+			}
+			stacksArr.sort(function(a,b){
+				if (!b.cards[0]) { return 1; }
+				if (!a.cards[0]) { return -1; }
+				if (a.cards[0].enterPlayTS > b.cards[0].enterPlayTS) {
+					return 1;
+				}
+				if (a.cards[0].enterPlayTS < b.cards[0].enterPlayTS) {
+					return -1;
+				}
+				return 0;
+			});
+			return stacksArr;
+		}
+
 		vm.oppInPlay = function() {
 			if (!vm.game.data.zones) {
 				return [];
 			}
-			return vm.game.data.zones.zones.shared.zones['player-' + getOppIndex() + '-inplay'].stacks;
+			var stacks = vm.game.data.zones.zones.shared.zones['player-' + getOppIndex() + '-inplay'].stacks;
+
+			return orderStacks(stacks);
 		};
 		vm.inPlay = function() {
 			if (!vm.game.data.zones) {
 				return [];
 			}
-			return vm.game.data.zones.zones.shared.zones['player-' + getIndex() + '-inplay'].stacks;
+			var stacks = vm.game.data.zones.zones.shared.zones['player-' + getIndex() + '-inplay'].stacks;
+
+			return orderStacks(stacks);
 		};
 
 		vm.toBuy = function() {

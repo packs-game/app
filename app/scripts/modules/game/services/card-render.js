@@ -46,7 +46,8 @@
 			'images/cards/bigbolt.png',
 			'images/cards/dome.png',
 			'images/cards/enhance.png',
-			'images/cards/repair.png'
+			'images/cards/repair.png',
+			'images/cards/khan.png'
 		];
 		var imgMap = {};
 		imgs.forEach(function(img){
