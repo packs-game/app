@@ -50,6 +50,9 @@
 		border-spacing: 0;
 	}
 
+	</style>
+	<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+	<style>
 
 
 	* {
@@ -63,6 +66,9 @@
 		background-size: cover;
 		background-repeat: no-repeat;
 	}
+	.board {
+		
+	}
 	.card {
 		transition: transform .1s, bottom .1s;
 	}
@@ -71,7 +77,7 @@
 	}
 	.buy-zone {
 		position: absolute;
-		background: rgba(0,0,0,.5);
+		background: rgba(0,0,0,.25);
 		height: 100%;
 		right: 0;
 		top: 0;
@@ -84,14 +90,15 @@
 	.board-zone {
 		text-align: center;
 		overflow: hidden;
-	}
-	.board-zone .card img {
-		height: 80%;
+		position: relative;
 	}
 	.redzone {
 		background-image: url('/images/board/redzone-empty.png');
 		background-size: cover;
 		background-repeat: no-repeat;
+	}
+	.state-attack .redzone {
+		background-image: url('/images/board/redzone-active.png');
 	}
 	.hand {
 		position: absolute;
@@ -118,62 +125,163 @@
 		overflow: hidden;
 	}
 	.server-stack {
-		z-index: -1;
+		z-index: 2;
 	    background-image: url('/images/board/server.png');
 	    background-size: cover;
 	    background-repeat: no-repeat;
 	    position: absolute;
+	    width: 3em;
+	    height: 3em;
+	    font-size: 80px;
+	    line-height: 3em;
+	    color: white;
+	    font-weight: bold;
+	    text-align: center;
+	    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
+	    font-family: 'Audiowide', cursive;
+	}
+	.server-stack.self {
+		bottom: 0;
+	    right: 0;
+	}
+	.server-stack.opp {
+		top: 0;
+	    left: 0;
+	    font-size: 60px;
+	}
+	.server-stack .discard {
+		position: absolute;
+		bottom: -.125em;
+		right: .25em;
+		height: 1em;
+		width: 1em;
+		background-image: url('/images/board/discard.png');
+		background-position-y: .25em;
+	    background-size: cover;
+	    background-repeat: no-repeat;
+	}
+	.server-stack .deck {
+		position: absolute;
+		bottom: -.125em;
+		left: .25em;
+		height: 1em;
+		width: 1em;
+		background-image: url('/images/board/deck.png');
+	    background-size: cover;
+	    background-repeat: no-repeat;
+	}
+	.power {
+		font-size: 60px;
+		height: 1em;
+		width: 1em;
+		background-image: url('/images/board/power.png');
+	    background-size: cover;
+	    line-height: 2.5em;
+	    color: white;
+	    font-weight: bold;
+	    text-align: center;
+	    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
+	    font-family: 'Audiowide', cursive;
+	    margin: .125em auto;
+	}
+	.power span {
+		font-size: .75em;
+		line-height: 1.75em;
+	}
+	.server-stack .deck span, .server-stack .discard span {
+		font-size: .5em;
+		line-height: 2em;
 	}
 	.hand .card img {
 		
 	}
+	.redzone .card img {
+		height: 100%;
+	}
 	.redzone .card {
 		transform: rotate(90deg);
 	}
+	.inplay .card img, .oppplay .card img {
+		height: 100%;
+	}
+	.redzone {
+		margin-right: 0 !important;
+	}
+	.board-zone .stacks {
+		position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    width: 100%;
+	}
+	.btn-container {
+	}
+	button {
+		display: block;
+		position: absolute;
+	    top: 52%;
+	    right: 15%;
+	    transform: translateY(-52%);
+	    width: 100%;
+	    z-index: 100;
+	    width: auto;
+	    padding: 1em;
+	    font-size: 24px;
+	    background: rgba(0,0,0,.8);
+	    color: white;
+	    font-weight: bold;
+	    font-family: 'Audiowide', cursive;
+	    border: 2px solid white;
+	}
+	button:hover {
+		background: rgba(0,0,0,.9);
+		color: rgba(25,125,10,1);
+		cursor: pointer;
+		border-color: rgba(25,125,10,1);
+	}
 	</style>
 </head>
-<body>
+<body class="">
 	<div class="board">
+		<div class="btn-container">
+			<button>No Blocks</button>
+		</div>
 		<div class="oppplay board-zone">
-			<div class="stack-container">
-				<div class="server-stack"></div>
-				<div class="card">
-					
+			<div class="stacks">
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
 				</div>
-			</div>
-			<div class="stack-container">
-				<div class="server-stack"></div>
-				<div class="card">
-					
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
 				</div>
-			</div>
-			<div class="stack-container">
-				<div class="server-stack"></div>
-				<div class="card">
-					<img src="/images/board/card.png" />
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
 				</div>
-			</div>
-			<div class="stack-container">
-				<div class="server-stack"></div>
-				<div class="card">
-					<img src="/images/board/card.png" />
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
 				</div>
-			</div>
-			<div class="stack-container">
-				<div class="server-stack"></div>
-				<div class="card">
-					
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
 				</div>
-			</div>
-			<div class="stack-container">
-				<div class="server-stack"></div>
-				<div class="card">
-					
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="redzone board-zone">
-			
+			<div class="stacks">
 				<div class="stack-container">
 					<div class="card">
 						<img src="/images/board/card.png" />
@@ -204,43 +312,40 @@
 						<img src="/images/board/card.png" />
 					</div>
 				</div>
+			</div>
 			
 		</div>
 		<div class="inplay board-zone">
-			<div class="stack-container">
-				<div class="server-stack"></div>
-				<div class="card">
-					
+			<div class="stacks">
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
 				</div>
-			</div>
-			<div class="stack-container">
-				<div class="server-stack"></div>
-				<div class="card">
-					
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
 				</div>
-			</div>
-			<div class="stack-container">
-				<div class="server-stack"></div>
-				<div class="card">
-					<img src="/images/board/card.png" />
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
 				</div>
-			</div>
-			<div class="stack-container">
-				<div class="server-stack"></div>
-				<div class="card">
-					<img src="/images/board/card.png" />
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
 				</div>
-			</div>
-			<div class="stack-container">
-				<div class="server-stack"></div>
-				<div class="card">
-					
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
 				</div>
-			</div>
-			<div class="stack-container">
-				<div class="server-stack"></div>
-				<div class="card">
-					
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
 				</div>
 			</div>
 			
@@ -264,6 +369,7 @@
 		</div>
 
 		<div class="buy-zone">
+			<div class="power"><span>6</span></div>
 			<div class="card">
 				<img src="/images/board/card.png" />
 			</div>
@@ -273,6 +379,19 @@
 			<div class="card">
 				<img src="/images/board/card.png" />
 			</div>
+			<div class="power"><span>6</span></div>
+		</div>
+
+		<div class="server-stack self">
+			10
+			<div class="deck"><span>4</span></div>
+			<div class="discard"><span>3</span></div>
+		</div>
+
+		<div class="server-stack opp">
+			8
+			<div class="deck"><span>6</span></div>
+			<div class="discard"><span>4</span></div>
 		</div>
 	</div>
 	<div styles></div>
@@ -286,19 +405,19 @@
 			var h = $(window).height();
 			var zoneHeight = Math.floor(h/3.8);
 
-			var cardH = Math.floor(zoneHeight*.8);
+			var cardH = Math.floor(zoneHeight);
 			
 			var cardW = Math.floor(cardRatio*cardH);
 
-			var buyZoneWidth = Math.floor(cardW+cardW*.25);
+			var buyZoneWidth = Math.floor(cardW+cardW*.45);
 
-			w-= buyZoneWidth+20;
+			w-= buyZoneWidth;
 
-			containerWidth = Math.floor(w/6);
+			containerWidth = Math.floor(w/8);
 			if (containerWidth > zoneHeight) { containerWidth = zoneHeight; }
 			if (cardH > zoneHeight) { cardH = zoneHeight; }
 
-			var maxCardWidth = Math.floor(w/6);
+			var maxCardWidth = Math.floor(w/8);
 
 			if (cardW > maxCardWidth) {
 				cardH = Math.floor((cardH/cardW)*maxCardWidth);
@@ -309,14 +428,14 @@
 			
 			var style='<style>';
 
-			style += '.stack-container { width: '+containerWidth+'px; height: '+containerWidth+'px; margin-top: '+((zoneHeight-cardH)/2)+'px;}';
+			style += '.stack-container { width: '+containerWidth+'px; height: '+containerWidth+'px;}';
 			style += '.board-zone, .hand {margin-right: '+buyZoneWidth+'px;}';
+			style += '.redzone .stacks {padding-right: '+buyZoneWidth+'px;}';
 			style += '.hand {width: '+(w)+'px;}'
 			style += '.board-zone { height: '+zoneHeight+'px;}';
-			style += '.server-stack { width: '+containerWidth+'px; height: '+containerWidth+'px}';
+			//style += '.server-stack { width: '+containerWidth+'px; height: '+containerWidth+'px}';
 
-			style += '.inplay .stack-container .card { margin-top: '+offset+'px;}';
-			style += '.buy-zone .card img { height: '+cardH+'px;}';
+			style += '.buy-zone .card img { height: '+cardH*.8+'px;}';
 
 			style += '.hand .card, .hand img { height: '+(cardH + cardH *.1)+'px; bottom: '+(-cardH*.2)+'px;}';
 			
