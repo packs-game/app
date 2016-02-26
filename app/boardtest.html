@@ -1,0 +1,333 @@
+<html>
+<head>
+	<style>
+	/* http://meyerweb.com/eric/tools/css/reset/ 
+	   v2.0 | 20110126
+	   License: none (public domain)
+	*/
+
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	b, u, i, center,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, embed, 
+	figure, figcaption, footer, header, hgroup, 
+	menu, nav, output, ruby, section, summary,
+	time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline;
+	}
+	/* HTML5 display-role reset for older browsers */
+	article, aside, details, figcaption, figure, 
+	footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+	body {
+		line-height: 1;
+	}
+	ol, ul {
+		list-style: none;
+	}
+	blockquote, q {
+		quotes: none;
+	}
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none;
+	}
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+
+
+	* {
+		box-sizing: border-box;
+	}
+	body {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background-image: url('/images/board/bg.png');
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+	.card {
+		transition: transform .1s, bottom .1s;
+	}
+	.card.active {
+		box-shadow: 0 0 10px rgba(25,125,10,1);
+	}
+	.buy-zone {
+		position: absolute;
+		background: rgba(0,0,0,.5);
+		height: 100%;
+		right: 0;
+		top: 0;
+		text-align: center;
+	}
+	.buy-zone .card {
+		display: block;
+		margin-top: 1.25em;
+	}
+	.board-zone {
+		text-align: center;
+		overflow: hidden;
+	}
+	.board-zone .card img {
+		height: 80%;
+	}
+	.redzone {
+		background-image: url('/images/board/redzone-empty.png');
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+	.hand {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		text-align: center;
+		display: block;
+	}
+	.hand .card {
+		position: relative;
+		height: 100%;
+		text-align: center;
+		display: inline-block;
+	}
+	.hand .card:hover {
+		bottom: 1em !important;
+		transform: scale(1.25);
+		z-index: 1;
+	}
+	.stack-container {
+		display: inline-block;
+		position: relative;
+		overflow: hidden;
+	}
+	.server-stack {
+		z-index: -1;
+	    background-image: url('/images/board/server.png');
+	    background-size: cover;
+	    background-repeat: no-repeat;
+	    position: absolute;
+	}
+	.hand .card img {
+		
+	}
+	.redzone .card {
+		transform: rotate(90deg);
+	}
+	</style>
+</head>
+<body>
+	<div class="board">
+		<div class="oppplay board-zone">
+			<div class="stack-container">
+				<div class="server-stack"></div>
+				<div class="card">
+					
+				</div>
+			</div>
+			<div class="stack-container">
+				<div class="server-stack"></div>
+				<div class="card">
+					
+				</div>
+			</div>
+			<div class="stack-container">
+				<div class="server-stack"></div>
+				<div class="card">
+					<img src="/images/board/card.png" />
+				</div>
+			</div>
+			<div class="stack-container">
+				<div class="server-stack"></div>
+				<div class="card">
+					<img src="/images/board/card.png" />
+				</div>
+			</div>
+			<div class="stack-container">
+				<div class="server-stack"></div>
+				<div class="card">
+					
+				</div>
+			</div>
+			<div class="stack-container">
+				<div class="server-stack"></div>
+				<div class="card">
+					
+				</div>
+			</div>
+		</div>
+		<div class="redzone board-zone">
+			
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
+				</div>
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
+				</div>
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
+				</div>
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
+				</div>
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
+				</div>
+				<div class="stack-container">
+					<div class="card">
+						<img src="/images/board/card.png" />
+					</div>
+				</div>
+			
+		</div>
+		<div class="inplay board-zone">
+			<div class="stack-container">
+				<div class="server-stack"></div>
+				<div class="card">
+					
+				</div>
+			</div>
+			<div class="stack-container">
+				<div class="server-stack"></div>
+				<div class="card">
+					
+				</div>
+			</div>
+			<div class="stack-container">
+				<div class="server-stack"></div>
+				<div class="card">
+					<img src="/images/board/card.png" />
+				</div>
+			</div>
+			<div class="stack-container">
+				<div class="server-stack"></div>
+				<div class="card">
+					<img src="/images/board/card.png" />
+				</div>
+			</div>
+			<div class="stack-container">
+				<div class="server-stack"></div>
+				<div class="card">
+					
+				</div>
+			</div>
+			<div class="stack-container">
+				<div class="server-stack"></div>
+				<div class="card">
+					
+				</div>
+			</div>
+			
+		</div>
+		<div class="hand">
+			<div class="card active">
+				<img src="/images/board/card.png" />
+			</div>
+			<div class="card active">
+				<img src="/images/board/card.png" />
+			</div>
+			<div class="card">
+				<img src="/images/board/card.png" />
+			</div>
+			<div class="card">
+				<img src="/images/board/card.png" />
+			</div>
+			<div class="card">
+				<img src="/images/board/card.png" />
+			</div>
+		</div>
+
+		<div class="buy-zone">
+			<div class="card">
+				<img src="/images/board/card.png" />
+			</div>
+			<div class="card">
+				<img src="/images/board/card.png" />
+			</div>
+			<div class="card">
+				<img src="/images/board/card.png" />
+			</div>
+		</div>
+	</div>
+	<div styles></div>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
+	<script>
+	$(function() {
+		function size() {
+			var cardRatio = 2.5/3.5; // w/h
+
+			var w = $(window).width();
+			var h = $(window).height();
+			var zoneHeight = Math.floor(h/3.8);
+
+			var cardH = Math.floor(zoneHeight*.8);
+			
+			var cardW = Math.floor(cardRatio*cardH);
+
+			var buyZoneWidth = Math.floor(cardW+cardW*.25);
+
+			w-= buyZoneWidth+20;
+
+			containerWidth = Math.floor(w/6);
+			if (containerWidth > zoneHeight) { containerWidth = zoneHeight; }
+			if (cardH > zoneHeight) { cardH = zoneHeight; }
+
+			var maxCardWidth = Math.floor(w/6);
+
+			if (cardW > maxCardWidth) {
+				cardH = Math.floor((cardH/cardW)*maxCardWidth);
+			}
+
+			var offset = ((containerWidth-cardH)/2);
+			if (offset < 0) { offset = 0; }
+			
+			var style='<style>';
+
+			style += '.stack-container { width: '+containerWidth+'px; height: '+containerWidth+'px; margin-top: '+((zoneHeight-cardH)/2)+'px;}';
+			style += '.board-zone, .hand {margin-right: '+buyZoneWidth+'px;}';
+			style += '.hand {width: '+(w)+'px;}'
+			style += '.board-zone { height: '+zoneHeight+'px;}';
+			style += '.server-stack { width: '+containerWidth+'px; height: '+containerWidth+'px}';
+
+			style += '.inplay .stack-container .card { margin-top: '+offset+'px;}';
+			style += '.buy-zone .card img { height: '+cardH+'px;}';
+
+			style += '.hand .card, .hand img { height: '+(cardH + cardH *.1)+'px; bottom: '+(-cardH*.2)+'px;}';
+			
+			style += '.buy-zone { width: '+buyZoneWidth+'px;}';
+			style += '</style>';
+			$('div[styles]').html(style);
+
+		}
+		$(window).on('resize', size)
+		$(size);
+	});
+	</script>
+</body>
+</html>

@@ -4,7 +4,15 @@
         height: 100%;
         width: 100%;
         overflow: hidden;
+        background: url('/images/boardbg.png');
+        background-size: cover;
+        background-repeat: no-repeat;
     }
+    </style>
+    <style ng-if="game.attacks.length || game.canBlock()">
+        body {
+            background-image: url('/images/boardbg-combat.png');
+        }
     </style>
     <div ng-show="game.game.data.started && !game.gameOver()" class="phase-{{game.game.data.phases[game.game.data.activePhase].name}}">
         <div class="top-info">
