@@ -1,0 +1,266 @@
+* {
+	box-sizing: border-box;
+}
+body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-image: url('/images/board/bg.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.board {
+	
+}
+.card {
+	transition: transform .1s, bottom .1s;
+}
+.card.active {
+	box-shadow: 0 0 10px rgba(25,125,10,1);
+}
+.buy-zone {
+	position: absolute;
+	background: rgba(0,0,0,.25);
+	height: 100%;
+	right: 0;
+	top: 0;
+	text-align: center;
+}
+.buy-zone .card {
+	display: block;
+	margin-top: 1.25em;
+}
+.board-zone {
+	text-align: center;
+	overflow: hidden;
+	position: relative;
+}
+.redzone {
+	background-image: url('/images/board/redzone-empty.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.state-attack .redzone {
+	background-image: url('/images/board/redzone-active.png');
+}
+.hand {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	display: block;
+}
+.hand .card {
+	position: relative;
+	height: 100%;
+	text-align: center;
+	display: inline-block;
+}
+.hand .card:hover {
+	bottom: 1.5em !important;
+	transform: scale(1.25);
+	z-index: 1;
+}
+.stack-container {
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+.server-stack {
+	z-index: 2;
+    background-image: url('/images/board/server.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 3em;
+    height: 3em;
+    font-size: 75px;
+    line-height: 3em;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
+    font-family: 'Audiowide', cursive;
+}
+.server-stack.self {
+	bottom: 0;
+    right: 1.5em;
+}
+.server-stack.opp {
+	top: 0;
+    left: 0;
+    font-size: 60px;
+}
+.server-stack .discard {
+	position: absolute;
+	bottom: -.125em;
+	right: .25em;
+	height: 1em;
+	width: 1em;
+	background-image: url('/images/board/discard.png');
+	background-position-y: .25em;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.server-stack .deck {
+	position: absolute;
+	bottom: -.125em;
+	left: .25em;
+	height: 1em;
+	width: 1em;
+	background-image: url('/images/board/deck.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.power {
+	font-size: 60px;
+	height: 1em;
+	width: 1em;
+	background-image: url('/images/board/power.png');
+    background-size: cover;
+    line-height: 2.5em;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
+    font-family: 'Audiowide', cursive;
+    margin: .125em auto;
+}
+.power span {
+	font-size: .75em;
+	line-height: 1.75em;
+}
+.server-stack .deck span, .server-stack .discard span {
+	font-size: .5em;
+	line-height: 2em;
+}
+.hand .card img {
+	
+}
+.redzone .card img {
+	height: 100%;
+}
+.redzone .card {
+	transform: rotate(90deg);
+}
+.inplay .card img, .oppplay .card img {
+	height: 100%;
+}
+.redzone {
+	margin-right: 0 !important;
+}
+.board-zone .stacks {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+.btn-container {
+}
+button {
+	display: block;
+	position: absolute;
+    top: 52%;
+    right: 15%;
+    transform: translateY(-52%);
+    z-index: 100;
+    width: auto;
+    padding: 1em;
+    font-size: 24px;
+    background: rgba(0,0,0,.8);
+    color: white;
+    font-weight: bold;
+    font-family: 'Audiowide', cursive;
+    border: 2px solid white;
+}
+button:hover {
+	background: rgba(0,0,0,.9);
+	color: rgba(25,125,10,1);
+	cursor: pointer;
+	border-color: rgba(25,125,10,1);
+}
+
+@media (max-width: 1450px) {
+  .server-stack {
+  	font-size: 65px;
+  }
+  .server-stack.opp {
+  	font-size: 45px;
+  }
+  .power {
+  	font-size: 45px;
+  }
+}
+@media (max-height: 950px) {
+  .server-stack {
+  	font-size: 65px;
+  }
+  .server-stack.opp {
+  	font-size: 45px;
+  }
+  .power {
+  	font-size: 45px;
+  }
+}
+@media (max-height: 800px) {
+	button { font-size: 20px;}
+  .server-stack {
+  	font-size: 55px;
+  }
+  .server-stack.opp {
+  	font-size: 35px;
+  }
+  .power {
+  	font-size: 35px;
+  }
+}
+@media (max-height: 650px) {
+	button { font-size: 12px;}
+  .server-stack {
+  	font-size: 45px;
+  }
+  .server-stack.self {
+  	right: 2em;
+  }
+  .server-stack.opp {
+  	font-size: 35px;
+  }
+  .power {
+  	font-size: 35px;
+  }
+}
+@media (max-height: 400px) {
+	button { font-size: 6px;}
+  body {
+  	font-size: 9px;
+  }
+  .server-stack {
+  	font-size: 25px;
+  }
+  .server-stack.self {
+  	right: 3em;
+  }
+  .server-stack.opp {
+  	font-size: 20px;
+  }
+  .power {
+  	font-size: 25px;
+  }
+}
+@media (max-height: 250px) {
+	button { font-size: 5px;}
+  .server-stack {
+  	font-size: 15px;
+  }
+  .server-stack.self {
+  	right: 4em;
+  }
+  .server-stack.opp {
+  	font-size: 12px;
+  }
+  .power {
+  	font-size: 15px;
+  }
+}
