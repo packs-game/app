@@ -413,6 +413,7 @@
 		vm.dropRedzoneStack = function($data, $event, target) {
 			vm.setActive($data.card.id);
 			vm.addBlock($data.card.id, target);
+			console.log($event);
 			vm.showBlocks();
 		};
 		vm.dropRedzone = function($data) {
@@ -421,15 +422,26 @@
 
 		var $ = window.$;
 		vm.showBlocks = function() {
-			$('.card').attr('style', '');
+			$('.inplay [card-id]').parent().attr('style', '');
+			var numBlocks = {};
 			vm.blocks.forEach(function(block) {
-				var card = $('.' + block.id).parent();
-				var target = $('.' + block.target).parent();
+				if (!numBlocks[block.target]) { numBlocks[block.target] = 1; }
+				else { numBlocks[block.target]++; }
+
+				var card = $('[card-id="' + block.id+'"]').parent();
+				var target = $('[card-id="' + block.target+'"]').parent();
+				var top = (target.offset().top - card.offset().top + (50*numBlocks[block.target]));
+				if (vm.blocks.length < vm.inPlay().length) {
+					top += $('[card-id="' + block.id+'"]').parent().height()/2;
+				}
+				top += 'px';
+				var left = (target.offset().left-5) + 'px';
+
 				card.css({
 					position: 'absolute',
-					top: (target.offset().top + 50) + 'px',
-					left: (target.offset().left + 50) + 'px',
-					zIndex: 10
+					top: top,
+					left: left,
+					zIndex: 500-numBlocks[block.target]
 				});
 			});
 		};
