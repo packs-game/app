@@ -480,16 +480,16 @@
 				txt = 'End Turn';
 			}
 			if ((phase === 'main' || phase === 'declare-attackers') && vm.attacks.length > 0) {
-				txt = 'Attack with ' + vm.attacks.length + ' bots.';
+				txt = 'Attack!';
 			}
 			if (phase === 'declare-attackers' && !vm.attacks.length) {
-				txt = 'No attacks';
+				txt = 'No Attacks';
 			}
 			if (phase === 'declare-defenders' && !vm.blocks.length) {
-				txt = 'No blocks';
+				txt = 'No Blocks';
 			}
 			if (phase === 'declare-defenders' && vm.blocks.length > 0) {
-				txt = 'Block with ' + vm.blocks.length + ' bots.';
+				txt = 'Block!';
 			}
 			return txt;
 		};

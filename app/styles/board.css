@@ -16,7 +16,7 @@ body {
     z-index: 5;
 }
 .active .card {
-	box-shadow: 0 0 10px rgba(25,125,10,1);
+	box-shadow: 0 0 20px rgba(25,125,10,1);
 }
 .buy-zone {
 	position: absolute;
@@ -52,7 +52,7 @@ body {
 	width: 100%;
 	text-align: center;
 	display: block;
-	z-index: 4;
+	z-index: 14;
 }
 .hand>div {
 	display: inline-block;
@@ -170,6 +170,9 @@ body {
 }
 .btn-container {
 	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 100;
 }
 .gameboard button {
 	display: block;
@@ -187,6 +190,7 @@ body {
 	color: rgba(25,125,10,1);
 	cursor: pointer;
 	border-color: rgba(25,125,10,1);
+	outline: none;
 }
 
 .target-container {
@@ -243,6 +247,22 @@ body {
     text-shadow: 2px 2px 2px rgba(0,0,0,.5);
     font-family: 'Audiowide', cursive;
 }
+.buy-zone .active .card:hover {
+	box-shadow: 0 0 20px rgba(10,200,230,1);
+	cursor: pointer;
+}
+.inplay .active {
+	cursor: -webkit-grab;
+}
+.hand .active .card {
+	cursor: -webkit-grab;
+}
+.hand .active.drag-over .card {
+	box-shadow: 0 0 20px rgba(10,200,230,1);
+}
+.inplay .active.drag-over .card {
+	box-shadow: 0 0 20px red;
+}
 
 .hand-drop-container {
     position: absolute;
@@ -252,7 +272,7 @@ body {
     height: 100%;
     text-align: center;
     color: white;
-    background: rgba(0,0,0,.7);
+    background: rgba(0,0,0,0);
     line-height: 20em;
     vertical-align: bottom;
     font-size: 40px;
