@@ -4,7 +4,8 @@
 	<link href="/styles/board.css" rel="stylesheet" type="text/css">
 	<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
 </head>
-<body class="state-attack">
+<body>
+<div class="state-attack state-target">
 	<div class="board">
 		<div class="btn-container">
 			<button>No Blocks</button>
@@ -45,11 +46,16 @@
 		</div>
 		<div class="redzone board-zone">
 			<div class="stacks">
-				<div class="stack-container">
-					<div class="card">
-						<img src="/images/board/card.png" />
+				<stack>
+					<div class="stack-container">
+						<div class="card valid-target">
+							<div class="target-container">
+								<img src="/images/board/target-loop.gif" />
+							</div>
+							<img src="/images/board/card.png" />
+						</div>
 					</div>
-				</div>
+				</stack>
 				<div class="stack-container">
 					<div class="card">
 						<img src="/images/board/card.png" />
@@ -81,7 +87,10 @@
 		<div class="inplay board-zone">
 			<div class="stacks">
 				<div class="stack-container">
-					<div class="card">
+					<div class="card valid-target">
+						<div class="target-container">
+							<img src="/images/board/target-loop.gif" />
+						</div>
 						<img src="/images/board/card.png" />
 					</div>
 				</div>
@@ -134,13 +143,25 @@
 		<div class="buy-zone">
 			<div class="power"><span>6</span></div>
 			<div class="card">
-				<img src="/images/board/card.png" />
+				<div class="buy-container">
+					<img src="/images/board/card.png" />
+					<div class="quantity">x2</div>
+					<div class="buy-power">3</div>
+				</div>
 			</div>
 			<div class="card">
-				<img src="/images/board/card.png" />
+				<div class="buy-container">
+					<img src="/images/board/card.png" />
+					<div class="quantity">x2</div>
+					<div class="buy-power">3</div>
+				</div>
 			</div>
 			<div class="card">
-				<img src="/images/board/card.png" />
+				<div class="buy-container">
+					<img src="/images/board/card.png" />
+					<div class="quantity">x2</div>
+					<div class="buy-power">3</div>
+				</div>
 			</div>
 			<div class="power"><span>6</span></div>
 		</div>
@@ -193,7 +214,7 @@
 
 			style += '.stack-container { width: '+containerWidth+'px; height: '+containerWidth+'px;}';
 			style += '.board-zone, .hand {margin-right: '+buyZoneWidth+'px;}';
-			style += '.redzone .stacks {padding-right: '+buyZoneWidth+'px;}';
+			style += '.redzone .stacks {padding-right: '+buyZoneWidth+'px;}, .button-container { right: '+buyZoneWidth+'px; }';
 			style += '.hand {width: '+(w)+'px;}'
 			style += '.board-zone { height: '+zoneHeight+'px;}';
 			//style += '.server-stack { width: '+containerWidth+'px; height: '+containerWidth+'px}';
@@ -211,5 +232,6 @@
 		$(size);
 	});
 	</script>
+</div>
 </body>
 </html>

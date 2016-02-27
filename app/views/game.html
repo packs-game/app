@@ -1,102 +1,96 @@
-<div class="gameboard noselect" name="board">
-    <style>
-    html, body {
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-        background: url('/images/boardbg.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-    </style>
-    <style ng-if="game.attacks.length || game.canBlock()">
-        body {
-            background-image: url('/images/boardbg-combat.png');
-        }
-    </style>
-    <div ng-show="game.game.data.started && !game.gameOver()" class="phase-{{game.game.data.phases[game.game.data.activePhase].name}}">
-        <div class="top-info">
-            Drag: {{game.dragging}}
-            <div ng-show="game.isTargeting" ng-click="game.cancelTarget()">SELECT TARGET</div>
-            <div>Turn: {{game.game.data.turn}}</div>
-            <div>Active Player: <span>{{game.getActivePlayer().name}}</span></div>
-            <div>Active Phase: <span>{{game.game.data.phases[game.game.data.activePhase].name}}</span></div>
-        </div>
-        <div class="zone to-buy">
-            <div ng-repeat="stack in game.toBuy() track by $index">
-                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-click="game.buy(card.id)" ng-class="{active: game.canPlayHand() && card.cost <= game.getCurrency(game.getIndex()) && !game.isTargeting}">
-                </div>
-            </div>
-        </div>
-        
-        <div class="button-container">
+<div ng-class="{stateAttack: game.attacks.length || game.canBlock(), stateTarget: game.isTargeting}"
+    ng-show="game.game.data.started && !game.gameOver()"
+    class="gameboard noselect phase-{{game.game.data.phases[game.game.data.activePhase].name}}">
+    <div class="top-info">
+        Drag: {{game.dragging}}
+        <div ng-show="game.isTargeting" ng-click="game.cancelTarget()">SELECT TARGET</div>
+        <div>Turn: {{game.game.data.turn}}</div>
+        <div>Active Player: <span>{{game.getActivePlayer().name}}</span></div>
+        <div>Active Phase: <span>{{game.game.data.phases[game.game.data.activePhase].name}}</span></div>
+    </div>
+    <div class="board">
+        <div class="btn-container">
             <button ng-click="game.buttonAction()" ng-show="game.isActivePlayer()" ng-class="{active: game.mustEndTurn()}">
                 {{game.buttonText()}}
             </button>
         </div>
-
-        <div class="opp-currency">{{ game.getCurrency(game.getOppIndex()) }}</div>
-        <div class="opp-health">{{ game.getMainFrameHealth(game.getOppIndex()) }}</div>
-        <div class="opp-info">
-            <div>{{ player.name }}</div>
-            
-            <div>DECK {{game.getDeck(game.getOppIndex()).length}}</div>
-            <div>HAND {{game.getHand(game.getOppIndex()).length}}</div>
-            <div>DISCARD {{game.getDiscard(game.getOppIndex()).length}}</div>
-        </div>
-        <div class="zone-container">
-            <div class="zone opp-inplay">
-                <div ng-repeat="stack in game.oppInPlay() track by $index">
-                    <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-class="{active: game.isValidTarget(card)}">
+        <div class="oppplay board-zone">
+            <div class="stacks">
+                <stack ng-repeat="stack in game.oppInPlay() track by $index">
+                    <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-class="{validTarget: game.isValidTarget(card)}" class="stack-container">
                     </div>
-                </div>
+                </stack>
             </div>
-            <div class="zone redzone" ng-drop="game.canAttack()" ng-drop-success="game.dropRedzone($data,$event)">
-                <div ng-repeat="stack in game.redzone() track by $index ">
+        </div>
+        <div class="redzone board-zone" ng-drop="game.canAttack()" ng-drop-success="game.dropRedzone($data,$event)">
+            <div class="stacks">
+                <stack ng-repeat="stack in game.redzone() track by $index">
                     <div ng-repeat="card in stack.cards"
                         ng-include="'views/card.html'"
                         ng-drop="game.canBlock()"
-                        ng-drop-success="game.dropRedzoneStack($data,$event, card.id)">
+                        ng-drop-success="game.dropRedzoneStack($data,$event, card.id)"
+                        class="stack-container">
                     </div>
-                </div>
+                </stack>
             </div>
-            <div class="zone inplay" ng-drop="game.canBlock() || game.canAttack()" ng-drop-success="game.undo($data,$event)">
-                <div ng-repeat="stack in game.inPlay() track by $index">
+        </div>
+        <div class="inplay board-zone" ng-drop="game.canBlock() || game.canAttack()" ng-drop-success="game.undo($data,$event)">
+            <div class="stacks">
+                <stack ng-repeat="stack in game.inPlay() track by $index">
                     <div ng-repeat="card in stack.cards" ng-include="'views/card.html'"
                         ng-class="{
                             attacking: game.isAttacking(card.id),
                             tapped: game.isAttacking(card.id),
-                            active: ((game.canAttack() && !card.summoningSick) || (game.canBlock()) && !card.tapped) || game.isValidTarget(card)
+                            active: ((game.canAttack() && !card.summoningSick) || (game.canBlock()) && !card.tapped),
+                            validTarget: game.isValidTarget(card)
                         }"
 
                         ng-drag="((game.canAttack() && !card.summoningSick) || game.canBlock()) && !card.tapped"
                         ng-drag-data="{card: card}" ng-center-anchor="true"
-                        class="card-container">
+                        class="stack-container">
                     </div>
-                </div>
+                </stack>
             </div>
         </div>
-        <div class="hand-drop-container"
+
+       <div class="hand-drop-container"
             ng-drop="game.canPlayHand()"
             ng-show="game.dragging"
             ng-drop-success="game.playCard($data.card, $event)">
             Play Card
         </div>
-        <div class="zone hand" ng-class="{active: game.canPlayHand() && !game.isTargeting}">
+        <div class="hand">
             <div ng-repeat="card in game.getPlayerHand() track by $index"
                 ng-include="'views/card.html'"
                 ng-drag="game.canPlayHand()"
                 ng-drag-data="{card: card}"
                 ng-center-anchor="true"
-                class="card-container"
-                ng-class="{hide: card.playing}">
+                ng-class="{hide: card.playing, active: game.canPlayHand() && !game.isTargeting}">
             </div>
         </div>
-        <div class="self-currency">{{ game.getCurrency(game.getIndex()) }}</div>
-        <div class="self-health">{{ game.getMainFrameHealth(game.getIndex()) }}</div>
-        <div class="self-info">
-            <div>DECK {{game.getDeck(game.getIndex()).length}}</div>
-            <div>DISCARD {{game.getDiscard(game.getIndex()).length}}</div>
+
+        <div class="buy-zone">
+            <div class="power"><span>{{ game.getCurrency(game.getOppIndex()) }}</span></div>
+            <div ng-repeat="stack in game.toBuy() track by $index">
+                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-click="game.buy(card.id)" ng-class="{active: game.canPlayHand() && card.cost <= game.getCurrency(game.getIndex()) && !game.isTargeting}">
+                </div>
+            </div>
+            <div class="power"><span>{{ game.getCurrency(game.getIndex()) }}</span></div>
+        </div>
+
+        <div class="server-stack self">
+            {{ game.getMainFrameHealth(game.getIndex()) }}
+            <div class="deck"><span>{{game.getDeck(game.getIndex()).length}}</span></div>
+            <div class="discard"><span>{{game.getDiscard(game.getIndex()).length}}</span></div>
+        </div>
+
+        <div class="server-stack opp">
+            <!--{{ player.name }}-->
+            {{ game.getMainFrameHealth(game.getOppIndex()) }}
+
+            <div class="deck"><span>{{game.getDeck(game.getOppIndex()).length}}</span></div>
+            <!--{{game.getHand(game.getOppIndex()).length}}-->
+            <div class="discard"><span>{{game.getDiscard(game.getOppIndex()).length}}</span></div>
         </div>
     </div>
     <div ng-show="game.gameOver()" class="game-over-screen">
@@ -105,4 +99,60 @@
         <a href="/" class="back-btn">Back</a>
     </div>
     <!--<pre>{{game.game.data | json}}</pre>-->
+    <div styles></div>
+
+    
+    <script>
+    $(function() {
+        function size() {
+            var cardRatio = 2.5/3.5; // w/h
+
+            var w = $(window).width();
+            var h = $(window).height();
+            var zoneHeight = Math.floor(h/3.8);
+
+            var cardH = Math.floor(zoneHeight);
+            
+            var cardW = Math.floor(cardRatio*cardH);
+
+            var buyZoneWidth = Math.floor(cardW+cardW*.45);
+
+            w-= buyZoneWidth;
+
+            containerWidth = Math.floor(w/8);
+            if (containerWidth > zoneHeight) { containerWidth = zoneHeight; }
+            if (cardH > zoneHeight) { cardH = zoneHeight; }
+
+            var maxCardWidth = Math.floor(w/8);
+
+            if (cardW > maxCardWidth) {
+                cardH = Math.floor((cardH/cardW)*maxCardWidth);
+            }
+
+            var offset = ((containerWidth-cardH)/2);
+            if (offset < 0) { offset = 0; }
+            
+            var style='<style>';
+
+            style += '.stack-container { width: '+containerWidth+'px; height: '+containerWidth+'px;}';
+            style += '.board-zone, .hand {margin-right: '+buyZoneWidth+'px;}';
+            style += '.redzone .stacks {padding-right: '+buyZoneWidth+'px;}';
+            style += '.hand {width: '+(w)+'px;}'
+            style += '.board-zone { height: '+zoneHeight+'px;}';
+            //style += '.server-stack { width: '+containerWidth+'px; height: '+containerWidth+'px}';
+
+            style += '.buy-zone .card img { height: '+cardH*.8+'px;}';
+            style += '.stack-container.attacking { top: -'+zoneHeight+'px;}';
+
+            style += '.hand .card, .hand img { height: '+(cardH + cardH *.1)+'px; bottom: '+(-cardH*.2)+'px;}';
+            
+            style += '.buy-zone { width: '+buyZoneWidth+'px;}';
+            style += '</style>';
+            $('div[styles]').html(style);
+
+        }
+        $(window).on('resize', size)
+        $(size);
+    });
+    </script>
 </div>
