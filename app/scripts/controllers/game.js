@@ -166,7 +166,7 @@
 
 
 		vm.pass = function() {
-			api.passAction(vm.user.id, vm.user.token);
+			return api.passAction(vm.user.id, vm.user.token);
 		};
 		vm.buy = function(cardId) {
 			if (!vm.canPlayHand() || vm.isTargeting) {
@@ -413,7 +413,6 @@
 		vm.dropRedzoneStack = function($data, $event, target) {
 			vm.setActive($data.card.id);
 			vm.addBlock($data.card.id, target);
-			console.log($event);
 			vm.showBlocks();
 		};
 		vm.dropRedzone = function($data) {
@@ -512,9 +511,10 @@
 				vm.endTurn();
 			}
 			if (phase === 'main' && vm.attacks.length > 0) {
-				vm.pass();
-				vm.declareAttacks();
-				vm.attacks = [];
+				vm.pass().then(function() {
+					vm.declareAttacks();
+					vm.attacks = [];
+				});
 			}
 			if (phase === 'declare-attackers' && vm.attacks.length > 0) {
 				vm.declareAttacks();
