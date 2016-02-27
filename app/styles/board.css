@@ -1,14 +1,3 @@
-* {
-	box-sizing: border-box;
-}
-body {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	background-image: url('/images/board/bg.png');
-	background-size: cover;
-	background-repeat: no-repeat;
-}
 .card {
 	display: inline-block;
 	transition: transform .1s, bottom .1s;

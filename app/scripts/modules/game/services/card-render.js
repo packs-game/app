@@ -48,7 +48,8 @@
 			'images/cards/enhance.png',
 			'images/cards/repair.png',
 			'images/cards/khan.png',
-			'images/cards/vlad.png'
+			'images/cards/vlad.png',
+			'images/cards/tesla.png'
 		];
 		var imgMap = {};
 		imgs.forEach(function(img){
