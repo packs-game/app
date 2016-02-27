@@ -88,8 +88,12 @@ body {
 
         <div class="buy-zone">
             <div class="power"><span>{{ game.getCurrency(game.getOppIndex()) }}</span></div>
-            <div ng-repeat="stack in game.toBuy() track by $index">
-                <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-click="game.buy(card.id)" ng-class="{active: game.canPlayHand() && card.cost <= game.getCurrency(game.getIndex()) && !game.isTargeting}" style="display: inline-block;">
+            <div ng-repeat="stack in game.toBuy() track by $index" class="buy-stack">
+                <div ng-repeat="card in stack.cards"
+                    ng-include="'views/card.html'"
+                    ng-click="game.buy(card.id)"
+                    ng-class="{active: game.canPlayHand() && card.cost <= game.getCurrency(game.getIndex()) && !game.isTargeting}"
+                    style="display: inline-block;">
                 </div>
             </div>
             <div class="power"><span>{{ game.getCurrency(game.getIndex()) }}</span></div>
@@ -154,9 +158,10 @@ body {
             //style += '.server-stack { width: '+containerWidth+'px; height: '+containerWidth+'px}';
 
             style += '.buy-zone .card img { height: '+cardH*.8+'px;}';
+            style += '.buy-stack { min-height: '+cardH+'px;}';
             style += '.stack-container.attacking { top: -'+zoneHeight+'px;}';
 
-            style += '.hand .card, .hand img { height: '+(cardH + cardH *.1)+'px; bottom: '+(-cardH*.2)+'px;}';
+            style += '.hand .card, .hand img, .float.card img { height: '+(cardH + cardH *.1)+'px; bottom: '+(-cardH*.2)+'px;}';
             
             style += '.buy-zone { width: '+buyZoneWidth+'px;}';
             style += '</style>';

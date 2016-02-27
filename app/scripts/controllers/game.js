@@ -43,10 +43,34 @@
 			vm.game = game.get();
 		}
 
+		function handleCardPlay(data){
+			//this is lazy and bad. so... yea
+			return cardRender.render(data, function(c) {
+				var img = $('<div class="card float"><img src="'+c.img+'"/></div>').appendTo('.gameboard');
+				img.css({
+					position: 'absolute',
+					zIndex: 100,
+					left: '50%',
+					top: '-30%'
+				});
+				img.animate({
+					left: '20%',
+					top: '30%'
+				}, function() {
+					setTimeout(function() {
+						img.fadeOut(function() {
+							img.remove();
+						});
+					},1000);
+				});
+			});
+		}
+
 		// events.forEach(function(e){
 		// 	socket.on(e, handleGameEvent);
 		// });
 		socket.on('game-event', handleGameEvent);
+		socket.on('card-played', handleCardPlay);
 
 		vm.getCurrency = function(playerIndex) {
 			if (typeof playerIndex !== 'number') {
@@ -535,13 +559,17 @@
 		vm.endTurn = function() {
 			var phase = getPhase();
 			if (phase === 'main') {
-				vm.pass(); //pass main
-				vm.pass(); //pass attacks
-				vm.pass(); //pass second main
+				vm.pass().then(function() {	//pass main
+					vm.pass().then(function() { //pass attacks
+						vm.pass(); //pass second main
+					});
+				});
 			}
 			if (phase === 'second-main') {
 				vm.pass(); //pass second main
 			}
+			vm.isTargeting = false;
+			vm.targetingCard = null;
 		};
 	});
 
