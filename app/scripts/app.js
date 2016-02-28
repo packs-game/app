@@ -51,6 +51,11 @@ angular
 				controller: 'CardListCtrl',
 				controllerAs: 'cardList'
 			})
+			.when('/chat', {
+				templateUrl: 'views/chat.html',
+				controller: 'ChatCtrl',
+				controllerAs: 'chat'
+			})
 			.otherwise({
 				redirectTo: '/'
 			});
