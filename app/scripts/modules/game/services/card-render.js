@@ -79,6 +79,14 @@
 			cardText.text = card.text;
 			titleTxt.text = card.name;
 
+			var typeTxt = new createjs.Text(card.type+(card.subtype?' - '+card.subtype:''), 'bold 12px Arial', 'black');
+			typeTxt.name = 'type-text';
+			typeTxt.x = 20;
+			typeTxt.y = 200;
+			typeTxt.textBaseline = 'alphabetic';
+			typeTxt.textAlign = 'left';
+
+
 			if (cardText.text && typeof cardText.text === 'string') {
 				if (cardText.text.split('\n').length === 2) {
 					cardText.y = 220;
@@ -90,7 +98,7 @@
 			} else {
 				cardText.y = 225;
 			}
-			stage.addChild(titleTxt,cardText);
+			stage.addChild(titleTxt,cardText,typeTxt);
 		}
 		var typeRender = {
 			currency: function(stage, card) {
@@ -112,18 +120,18 @@
 				txt.text = card.name + ' | ' + card.toughness;
 				txt.color = 'white';
 			},
-			program: function(stage, card) {
-				addBackground(stage);
-				stage.addChild(imgMap['images/card-template/program-bg.png']);
+			// command: function(stage, card) {
+			// 	addBackground(stage);
+			// 	stage.addChild(imgMap['images/card-template/program-bg.png']);
 				
-				var img = imgMap['images/card-img3.png'];
-				img.x = 10;
-				img.y = 48;
-				stage.addChild(img);
-				stage.addChild(imgMap['images/card-template/program-border.png']);
-				addText(stage,card);
-			},
-			token: function(stage, card) {
+			// 	var img = imgMap['images/card-img3.png'];
+			// 	img.x = 10;
+			// 	img.y = 48;
+			// 	stage.addChild(img);
+			// 	stage.addChild(imgMap['images/card-template/program-border.png']);
+			// 	addText(stage,card);
+			// },
+			'program-bot': function(stage, card) {
 				addBackground(stage);
 				stage.addChild(imgMap['images/card-template/token-bg.png']);
 				
@@ -143,7 +151,7 @@
 				txt.y = 240;
 
 			},
-			action: function(stage, card) {
+			command: function(stage, card) {
 				addBackground(stage);
 				stage.addChild(imgMap['images/card-template/action-bg.png']);
 				
@@ -154,11 +162,10 @@
 				stage.addChild(imgMap['images/card-template/action-border.png']);
 				addText(stage,card);
 			},
-			ai: function(stage, card) {
+			'program-ai': function(stage, card) {
 				addBackground(stage);
 				stage.addChild(imgMap['images/card-template/ai-bg.png']);
-				
-				var img = imgMap['images/cards/'+card.img];
+				var img = imgMap['images/' + (card.img ? 'cards/' + card.img : 'card-img4.png')];
 				img.x = 10;
 				img.y = 48;
 
@@ -187,13 +194,15 @@
 		};
 
 		function render(card, cb, retObj) {
-			if (!retObj) { retObj = {img: ''} };
+			if (!retObj) { retObj = {img: ''}; }
 			if (!ready) {
 				onReady.push([card,cb,retObj]);
 				return retObj;
 			}
 			var stage = new createjs.Stage(canvas);
-			typeRender[card.type](stage, card);
+			var type = card.type+(card.subtype ? '-'+card.subtype : '');
+			if (!typeRender[type]) { console.log('ERRR NO TYPE FOR ', card, type); return; }
+			typeRender[type](stage, card);
 			stage.addChild(imgMap['images/card-template/top-border.png']);
 	
 			stage.update();
