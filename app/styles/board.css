@@ -109,6 +109,9 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+.server-stack.validTarget {
+  box-shadow: 0 0 20px rgba(25,125,10,1); 
+}
 .power {
 	font-size: 60px;
 	height: 1em;

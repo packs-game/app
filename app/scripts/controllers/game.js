@@ -131,7 +131,12 @@
 			if (!vm.game.data.zones) {
 				return 0;
 			}
-			return 20 - (vm.game.data.zones.zones['player-' + index].stacks.mainframe.damage || 0);
+			return vm.game.data.zones.zones['player-' + index].stacks.mainframe.cards[0].toughness || 0;
+		};
+
+		vm.getMainframe = function(index) {
+			if (!vm.game.data.zones) { return {}; }
+			return vm.game.data.zones.zones['player-' + index].stacks.mainframe.cards[0];
 		};
 
 		$scope.$on('$destroy', function() {
@@ -184,14 +189,20 @@
 		}
 
 		vm.isValidTarget = function(card) {
-			if (!vm.isTargeting || !vm.targetingCard) {
-				return;
+			if (!vm.isTargeting || !vm.targetingCard || !card) {
+				return false;
 			}
 			if (card.zone === adjustPattern(vm.targetingCard.targetZonePattern)) {
 				return true;
-			} else {
-				return false;
 			}
+			if (vm.targetingCard.targetZonePattern === 'inplay' && (card.zone.indexOf('inplay') > -1)) {
+				return true;
+			}
+			if (vm.targetingCard.targetZonePattern === 'anycreatureplayer' &&
+				((card.zone.indexOf('inplay') > -1) || card.stack === 'mainframe')) {
+				return true;
+			}
+			return false;
 		};
 
 

@@ -52,7 +52,7 @@ body {
                 </stack>
             </div>
         </div>
-        <div class="inplay board-zone" ng-drop="game.canBlock() || game.canAttack()" ng-drop-success="game.undo($data,$event)">
+         <div class="inplay board-zone" ng-drop="game.canBlock() || game.canAttack()" ng-drop-success="game.undo($data,$event)">
             <div class="stacks">
                 <stack ng-repeat="stack in game.inPlay() track by $index">
                     <div ng-repeat="card in stack.cards" ng-include="'views/card.html'"
@@ -99,13 +99,25 @@ body {
             <div class="power"><span>{{ game.getCurrency(game.getIndex()) }}</span></div>
         </div>
 
-        <div class="server-stack self">
+        <div class="server-stack self"
+            ng-click="game.resolveTarget(game.getMainframe(game.getIndex()))"
+            ng-class="{validTarget: game.isValidTarget(game.getMainframe(game.getIndex()))}">
+
+            <div class="target-container" ng-if="game.isValidTarget(game.getMainframe(game.getIndex()))">
+                <img src="/images/board/target-loop.gif" />
+            </div>
             {{ game.getMainFrameHealth(game.getIndex()) }}
             <div class="deck"><span>{{game.getDeck(game.getIndex()).length}}</span></div>
             <div class="discard"><span>{{game.getDiscard(game.getIndex()).length}}</span></div>
         </div>
 
-        <div class="server-stack opp">
+        <div class="server-stack opp"
+            ng-click="game.resolveTarget(game.getMainframe(game.getOppIndex()))"
+            ng-class="{validTarget: game.isValidTarget(game.getMainframe(game.getOppIndex()))}">
+
+            <div class="target-container" ng-if="game.isValidTarget(game.getMainframe(game.getOppIndex()))">
+                <img src="/images/board/target-loop.gif" />
+            </div>
             <!--{{ player.name }}-->
             {{ game.getMainFrameHealth(game.getOppIndex()) }}
 

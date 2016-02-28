@@ -104,6 +104,14 @@
 				stage.addChild(imgMap['images/card-template/currency-border.png']);
 
 			},
+			mainframe: function(stage, card) {
+				addBackground(stage);
+				addText(stage,card);
+
+				var txt = stage.getChildByName('card-text');
+				txt.text = card.name + ' | ' + card.toughness;
+				txt.color = 'white';
+			},
 			program: function(stage, card) {
 				addBackground(stage);
 				stage.addChild(imgMap['images/card-template/program-bg.png']);
