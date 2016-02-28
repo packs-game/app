@@ -24,14 +24,11 @@
 	overflow: hidden;
 }
 .nav {
-	margin: 0;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin-left: -14.5em;
-	margin-top: -11em;
-	box-sizing: border-box;
-	height: 15em;
+	transform: translate(-50%, -50%);
+	margin: 0;
 	padding: 0;
 }
 
