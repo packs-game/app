@@ -422,3 +422,42 @@
   transform: rotate(90deg);
   margin: 1em 1.5em;
 }
+
+.action-log:hover {
+  opacity: 1;
+}
+.action-log {
+  position: absolute;
+  top: 20%;
+  height: 60%;
+  width: 10%;
+  overflow: hidden;
+  z-index: 200;
+  opacity: .7;
+}
+.action-log>div {
+  height: 24.75%;
+  margin: 1% 5%;
+}
+.action-log img {
+  height: 100%;
+}
+
+.action-log>div.ng-move,
+.action-log>div.ng-enter,
+.action-log>div.ng-leave {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+ 
+.action-log>div.ng-leave.ng-leave-active,
+.action-log>div.ng-move,
+.action-log>div.ng-enter {
+  opacity:0;
+}
+ 
+.action-log>div.ng-leave,
+.action-log>div.ng-move.ng-move-active,
+.action-log>div.ng-enter.ng-enter-active {
+  opacity:1;
+}

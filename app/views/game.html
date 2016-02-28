@@ -113,6 +113,12 @@ body {
             <!--{{game.getHand(game.getOppIndex()).length}}-->
             <div class="discard"><span>{{game.getDiscard(game.getOppIndex()).length}}</span></div>
         </div>
+
+        <div class="action-log">
+            <div ng-repeat="action in game.actionlog | reverse">
+                <img src="{{action.img}}" />
+            </div>
+        </div>
     </div>
     <!--<pre>{{game.game.data | json}}</pre>-->
     <div styles></div>

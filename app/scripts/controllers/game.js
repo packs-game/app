@@ -43,9 +43,12 @@
 			vm.game = game.get();
 		}
 
+		vm.actionlog = [];
+
 		function handleCardPlay(data){
 			//this is lazy and bad. so... yea
 			return cardRender.render(data, function(c) {
+				vm.actionlog.push({action: 'card-played', img: c.img});
 				var img = $('<div class="card float"><img src="'+c.img+'"/></div>').appendTo('.gameboard');
 				img.css({
 					position: 'absolute',
@@ -574,3 +577,11 @@
 	});
 
 }());
+
+
+angular.module('packsApp').filter('reverse', function() {
+  return function(items) {
+  	if (!Array.isArray(items)) { return items; } //can only reverse arrays
+    return items.slice().reverse();
+  };
+});
