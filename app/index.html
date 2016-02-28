@@ -24,7 +24,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="view-container">
+    <div class="view-container" ng-controller="RootCtrl as root">
         <div ng-view="" class="view-element"></div>
     </div>
 
@@ -79,6 +79,7 @@
         <script src="scripts/modules/game/services/game.js"></script>
         <script src="scripts/modules/game/services/card-render.js"></script>
         <script src="scripts/modules/game/directives/ng-right-click.js"></script>
+        <script src="scripts/controllers/root.js"></script>
         <!-- endbuild -->
 </body>
 </html>

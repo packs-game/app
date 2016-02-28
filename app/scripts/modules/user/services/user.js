@@ -40,6 +40,7 @@ angular.module('packsApp').factory('user', ['api', 'socket', function(api, socke
 
 	return {
 		get: function() {
+			api.ready(getUser);
 			return user;
 		},
 		login: function(username, password) {
