@@ -1,5 +1,5 @@
  <div class="card" ng-class="{tapped: card.tapped, 'summoning-sick': card.summoningSick}" ng-click="game.resolveTarget(card)" card-id="{{card.id}}">
-    	<div class="target-container">
+    	<div class="target-container" ng-if="game.isValidTarget(card)">
             <img src="/images/board/target-loop.gif" />
         </div>
         <img src="{{game.render(card)}}" />

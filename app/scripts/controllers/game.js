@@ -9,25 +9,28 @@
  */
 (function() {
 	var events = [
-		'zone:created',
-		'phase:created',
-		'game:addedPhase',
-		'zone:addedZone',
-		'stack:created',
-		'zone:addedStack',
-		'player:created',
-		'game:addedPlayer',
-		'stack:addedCard',
-		'card:created',
-		'card:zoneChange',
-		'card:stackChange',
-		'stack:shuffledCards',
-		'stack:removedCard',
-		'game:started',
-		'game:activePlayerChange',
-		'game:newTurn',
-		'game:activePhaseChange',
-		'phase:entered'
+		// 'zone:created',
+		// 'phase:created',
+		// 'game:addedPhase',
+		// 'zone:addedZone',
+		// 'stack:created',
+		// 'zone:addedStack',
+		// 'player:created',
+		// 'game:addedPlayer',
+		// 'stack:addedCard',
+		// 'card:created',
+		// 'card:zoneChange',
+		// 'card:stackChange',
+		// 'stack:shuffledCards',
+		// 'stack:removedCard',
+		// 'game:started',
+		// 'game:activePlayerChange',
+		// 'game:newTurn',
+		// 'game:activePhaseChange',
+		// 'phase:entered'
+
+		'game-event',
+		'card-played'
 	];
 
 	angular.module('packsApp').controller('GameCtrl', function(socket, user, $scope, game, api, cardRender, $location, $rootScope, $timeout) {

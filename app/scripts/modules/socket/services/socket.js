@@ -51,15 +51,16 @@
 		self.socket = socket;
 		self.scope = scope;
 
+		self.loaded = true;
 		self.readyFunctions.forEach(function(rdy) {
-			self.socket.on(rdy.ev, rdy.fn);
+			self.on(rdy.ev, rdy.fn);
 		});
 		self.emitReadyFunctions.forEach(function(rdy) {
-			self.socket.emit(rdy.ev, rdy.data, rdy.fn);
+			self.emit(rdy.ev, rdy.data, rdy.fn);
 		});
 		self.readyFunctions = [];
 		self.emitReadyFunctions = [];
-		self.loaded = true;
+		
 	};
 
 	angular.module('packsApp').factory('socket', ['allServices', '$rootScope', function(allServices, $rootScope) {

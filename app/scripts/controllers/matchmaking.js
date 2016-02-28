@@ -37,7 +37,7 @@ angular.module('packsApp')
 
 		$scope.$on('$destroy', function() {
 			if (socket.socket) {
-				socket.socket.removeAllListeners('start-of-game');
+				socket.socket.removeAllListeners('game-started');
 			}
 		});
 	});
