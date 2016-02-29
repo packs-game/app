@@ -16,7 +16,7 @@ body {
     <strong ng-show="!game.isWinner()">Defeat</strong>
     <a href="/" class="back-btn">Back</a>
 </div>
-<div ng-class="{stateAttack: game.attacks.length || game.canBlock(), stateTarget: game.isTargeting}"
+<div ng-class="{stateAttack: game.attacks.length || game.canBlock(), stateTarget: game.isTargeting, stateNoBuy: !game.canPlayHand() && !game.isTargeting}"
     ng-show="game.game.data.started && !game.gameOver()"
     class="gameboard noselect phase-{{game.game.data.phases[game.game.data.activePhase].name}}">
     <div class="top-info">

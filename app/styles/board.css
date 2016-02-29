@@ -5,7 +5,8 @@
   z-index: 5;
 }
 
-.active .card img {
+.active .card img,
+.validTarget .card img {
   box-shadow: 0 0 20px rgba(25, 125, 10, 1);
 }
 
@@ -355,6 +356,22 @@
 
 .hand-drop-container.drag-enter {
   opacity: 1;
+}
+
+
+.buy-zone, .board-zone, .hand {
+  -webkit-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+}
+.stateNoBuy .buy-zone {
+  position: absolute;
+  right: -25%;
+}
+.stateNoBuy .board-zone {
+  margin-right: 0%;
+}
+.stateNoBuy .hand {
+  width: 95%;
 }
 
 @media (max-width:1450px) {
