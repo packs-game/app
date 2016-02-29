@@ -30,7 +30,11 @@
 		// 'phase:entered'
 
 		'game-event',
-		'card-played'
+		'card-played',
+		'active-pass',
+		'buy',
+		'attacks',
+		'end-turn'
 	];
 
 	angular.module('packsApp').controller('GameCtrl', function(socket, user, $scope, game, api, cardRender, $location, $rootScope, $timeout) {
@@ -48,10 +52,12 @@
 
 		vm.actionlog = [];
 
-		function handleCardPlay(data){
+		function handleCardPlay(card){
 			//this is lazy and bad. so... yea
-			return cardRender.render(data, function(c) {
-				vm.actionlog.push({action: 'card-played', img: c.img});
+			return cardRender.render(card, function(c) {
+				vm.actionlog.push({action: 'card-played', img: (card.img ? '/images/cards/'+card.img : c.img)});
+				if (card.owner === vm.getIndex()) { return; }
+				//only animate the play if the opponent did it
 				var img = $('<div class="card float"><img src="'+c.img+'"/></div>').appendTo('.gameboard');
 				img.css({
 					position: 'absolute',
@@ -72,11 +78,35 @@
 			});
 		}
 
+		function handlePass(passingPlayerIndex) {
+			//we hide a lot of this under the hood so best not to expose it...
+			//vm.actionlog.push({action: 'active-pass', img: '/images/board/action-pass.png'});
+		}
+
+		function handleBuy(buyingPlayerIndex) {
+			vm.actionlog.push({action: 'buy', img: '/images/board/action-buy.png'});
+		}
+
+		function handleAttacks(attacks) {
+			vm.actionlog.push({action: 'attacks', img: '/images/board/action-attack.png'});
+		}
+		function handleBlocks(blocks) {
+			vm.actionlog.push({action: 'blocks', img: '/images/board/action-block.png'});
+		}
+		function handleEot(passingPlayerIndex) {
+			vm.actionlog.push({action: 'end-turn', img: '/images/board/action-end-turn.png'});
+		}
+
 		// events.forEach(function(e){
 		// 	socket.on(e, handleGameEvent);
 		// });
 		socket.on('game-event', handleGameEvent);
 		socket.on('card-played', handleCardPlay);
+		socket.on('active-pass', handlePass);
+		socket.on('buy', handleBuy);
+		socket.on('attacks', handleAttacks);
+		socket.on('blocks', handleBlocks);
+		socket.on('end-turn', handleEot);
 
 		vm.getCurrency = function(playerIndex) {
 			if (typeof playerIndex !== 'number') {
