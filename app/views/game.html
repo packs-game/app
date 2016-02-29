@@ -34,7 +34,7 @@ body {
         </div>
         <div class="oppplay board-zone">
             <div class="stacks">
-                <stack ng-repeat="stack in game.oppInPlay() track by $index">
+                <stack ng-repeat="stack in game.oppInPlay() track by $index" class="tap-container">
                     <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-class="{validTarget: game.isValidTarget(card)}" class="stack-container">
                     </div>
                 </stack>
@@ -42,7 +42,7 @@ body {
         </div>
         <div class="redzone board-zone" ng-drop="game.canAttack()" ng-drop-success="game.dropRedzone($data,$event)">
             <div class="stacks">
-                <stack ng-repeat="stack in game.redzone() track by $index">
+                <stack ng-repeat="stack in game.redzone() track by $index" class="tap-container">
                     <div ng-repeat="card in stack.cards"
                         ng-include="'views/card.html'"
                         ng-drop="game.canBlock()"
@@ -54,7 +54,7 @@ body {
         </div>
          <div class="inplay board-zone" ng-drop="game.canBlock() || game.canAttack()" ng-drop-success="game.undo($data,$event)">
             <div class="stacks">
-                <stack ng-repeat="stack in game.inPlay() track by $index">
+                <stack ng-repeat="stack in game.inPlay() track by $index" class="tap-container">
                     <div ng-repeat="card in stack.cards" ng-include="'views/card.html'"
                         ng-class="{
                             attacking: game.isAttacking(card.id),
@@ -133,61 +133,4 @@ body {
         </div>
     </div>
     <!--<pre>{{game.game.data | json}}</pre>-->
-    <div styles></div>
-
-    
-    <script>
-    $(function() {
-        function size() {
-            var cardRatio = 2.5/3.5; // w/h
-
-            var w = $(window).width();
-            var h = $(window).height();
-            var zoneHeight = Math.floor(h/3.8);
-
-            var cardH = Math.floor(zoneHeight);
-            
-            var cardW = Math.floor(cardRatio*cardH);
-
-            var buyZoneWidth = Math.floor(cardW+cardW*.45);
-
-            w-= buyZoneWidth;
-
-            containerWidth = Math.floor(w/8);
-            if (containerWidth > zoneHeight) { containerWidth = zoneHeight; }
-            if (cardH > zoneHeight) { cardH = zoneHeight; }
-
-            var maxCardWidth = Math.floor(w/8);
-
-            if (cardW > maxCardWidth) {
-                cardH = Math.floor((cardH/cardW)*maxCardWidth);
-            }
-
-            var offset = ((containerWidth-cardH)/2);
-            if (offset < 0) { offset = 0; }
-            
-            var style='<style>';
-
-            style += '.stack-container { width: '+containerWidth+'px; height: '+containerWidth+'px;}';
-            style += '.board-zone, .hand {margin-right: '+buyZoneWidth+'px;}';
-            style += '.redzone .stacks {padding-right: '+buyZoneWidth+'px;}';
-            style += '.hand {width: '+(w)+'px;}'
-            style += '.board-zone { height: '+zoneHeight+'px;}';
-            //style += '.server-stack { width: '+containerWidth+'px; height: '+containerWidth+'px}';
-
-            style += '.buy-zone .card img { height: '+cardH*.8+'px;}';
-            style += '.buy-stack { min-height: '+cardH+'px;}';
-            style += '.stack-container.attacking { top: -'+zoneHeight+'px;}';
-
-            style += '.hand .card, .hand img, .float.card img { height: '+(cardH + cardH *.1)+'px; bottom: '+(-cardH*.2)+'px;}';
-            
-            style += '.buy-zone { width: '+buyZoneWidth+'px;}';
-            style += '</style>';
-            $('div[styles]').html(style);
-
-        }
-        $(window).on('resize', size)
-        $(size);
-    });
-    </script>
 </div>

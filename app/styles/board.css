@@ -1,384 +1,510 @@
 .card {
-	display: inline-block;
-	transition: transform .1s, bottom .1s;
-    height: 100%;
-    z-index: 5;
+  display: inline-block;
+  transition: transform .1s, bottom .1s;
+  height: 100%;
+  z-index: 5;
 }
-.active .card {
-	box-shadow: 0 0 20px rgba(25,125,10,1);
+
+.active .card img {
+  box-shadow: 0 0 20px rgba(25, 125, 10, 1);
 }
+
+.stack-container.attacking {
+  top: -100%;
+  position: relative;
+}
+
+.float.card img {
+  height: 35%;
+  bottom: -20%
+}
+
+.gameboard,
+.board {
+  height: 100%;
+}
+
 .buy-zone {
-	position: absolute;
-	background-image: url('/images/board/buybg.png');
-	background-size: cover;
-	background-repeat: no-repeat;
-	height: 100%;
-	right: 0;
-	top: 0;
-	text-align: center;
-	z-index: 5;
+  position: absolute;
+  background-image: url('/images/board/buybg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  right: 0;
+  top: 0;
+  text-align: center;
+  z-index: 5;
+  width: 20%;
 }
+
+.buy-stack {
+  height: 20%;
+  margin: 2% 0;
+}
+
+.buy-stack>div {
+  height: 100%;
+}
+
 .buy-zone .card {
-	margin-top: 1.25em;
+  height: 100%;
+  position: relative;
+  display: inline-block;
 }
+
 .board-zone {
-	text-align: center;
-	position: relative;
-	z-index: 3;
+  margin-right: 20%;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+  height: 25%;
 }
+
+.board-zone stack {
+  display: inline-block;
+  width: 10%;
+  height: 100%;
+  padding: 1% 0;
+}
+.board-zone stack.tap-container {
+  margin: 0 2.5%;
+}
+
 .redzone {
-	background-image: url('/images/board/redzone-empty.png');
-	background-size: cover;
-	background-repeat: no-repeat;
+  background-image: url('/images/board/redzone-empty.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
+
 .stateAttack .redzone {
-	background-image: url('/images/board/redzone-active.png');
+  background-image: url('/images/board/redzone-active.png');
 }
+
 .hand {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	text-align: center;
-	display: block;
-	z-index: 14;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 75%;
+  text-align: center;
+  display: block;
+  z-index: 14;
+  margin-left: 5%;
+  height: 25%;
 }
+
 .hand>div {
-	display: inline-block;
+  display: inline-block;
+  height: 100%;
 }
+
 .hand .card {
-	position: relative;
-	height: 100%;
-	text-align: center;
-	display: inline-block;
-	margin: 0 .25em;
+  position: relative;
+  height: 100%;
+  text-align: center;
+  display: inline-block;
+  margin: 0 2%;
+  bottom: -15%;
 }
+
 .hand .card:hover {
-	bottom: 1.5em !important;
-	transform: scale(1.25);
-	z-index: 1;
+  bottom: 10%;
+  transform: scale(1.25);
+  z-index: 50;
 }
+
 .stack-container {
-	display: inline-block;
-	position: relative;
-	overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  position: relative;
 }
+
 .server-stack {
-	z-index: 10;
-    background-image: url('/images/board/server.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: absolute;
-    width: 3em;
-    height: 3em;
-    font-size: 75px;
-    line-height: 3em;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
-    font-family: 'Audiowide', cursive;
+  z-index: 10;
+  background-image: url('/images/board/server.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 3em;
+  height: 3em;
+  font-size: 75px;
+  line-height: 3em;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+  font-family: 'Audiowide', cursive;
 }
+
 .server-stack.self {
-	bottom: .25em;
-    right: 0.25em;
+  bottom: .25em;
+  right: 0.25em;
 }
+
 .server-stack.opp {
-	top: 0;
-    left: 0;
-    font-size: 60px;
+  top: 0;
+  left: 0;
+  font-size: 60px;
 }
+
 .server-stack .discard {
-	position: absolute;
-	bottom: -.125em;
-	right: .25em;
-	height: 1em;
-	width: 1em;
-	background-image: url('/images/board/discard.png');
-	background-position-y: .25em;
-    background-size: cover;
-    background-repeat: no-repeat;
+  position: absolute;
+  bottom: -.125em;
+  right: .25em;
+  height: 1em;
+  width: 1em;
+  background-image: url('/images/board/discard.png');
+  background-position-y: .25em;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
+
 .server-stack .deck {
-	position: absolute;
-	bottom: -.125em;
-	left: .25em;
-	height: 1em;
-	width: 1em;
-	background-image: url('/images/board/deck.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+  position: absolute;
+  bottom: -.125em;
+  left: .25em;
+  height: 1em;
+  width: 1em;
+  background-image: url('/images/board/deck.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
+
 .server-stack.validTarget {
-  box-shadow: 0 0 20px rgba(25,125,10,1); 
+  box-shadow: 0 0 20px rgba(25, 125, 10, 1);
 }
+
 .power {
-	font-size: 60px;
-	height: 1em;
-	width: 1em;
-	background-image: url('/images/board/power.png');
-    background-size: cover;
-    line-height: 2.5em;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
-    font-family: 'Audiowide', cursive;
-    margin: .125em auto;
+  font-size: 60px;
+  height: 1em;
+  width: 1em;
+  background-image: url('/images/board/power.png');
+  background-size: cover;
+  line-height: 2.5em;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+  font-family: 'Audiowide', cursive;
+  margin: .125em auto;
 }
+
 .power span {
-	font-size: .75em;
-	line-height: 1.75em;
-	top: -1em;
-    position: relative;
+  font-size: .75em;
+  line-height: 1.75em;
+  top: -1em;
+  position: relative;
 }
-.server-stack .deck span, .server-stack .discard span {
-	font-size: .5em;
-	line-height: 2em;
-	top: -2.5em;
-    position: relative;
+
+.server-stack .deck span,
+.server-stack .discard span {
+  font-size: .5em;
+  line-height: 2em;
+  top: -2.5em;
+  position: relative;
 }
-.hand .card img {
-	
-}
-.redzone .card img {
-	height: 100%;
-}
+
 .redzone .card {
-	transform: rotate(90deg);
+  transform: rotate(90deg);
 }
-.inplay .card img, .oppplay .card img {
-	height: 100%;
+
+.inplay .card img,
+.oppplay .card img,
+.redzone .card img,
+.hand .card img,
+.buy-zone .card img {
+  max-height: 100%;
+  max-width: 100%;
 }
-.redzone {
-	margin-right: 0 !important;
+
+.board-zone .redzone {
+  margin-right: 0;
 }
+
 .board-zone .stacks {
-	position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  padding-left: 10%;
 }
+
 .btn-container {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	z-index: 100;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
 }
+
 .gameboard button {
-	display: block;
-    z-index: 100;
-    padding: 1em;
-    font-size: 24px;
-    background: rgba(0,0,0,.8);
-    color: white;
-    font-weight: bold;
-    font-family: 'Audiowide', cursive;
-    border: 2px solid white;
+  display: block;
+  z-index: 100;
+  padding: 1em;
+  font-size: 24px;
+  background: rgba(0, 0, 0, .8);
+  color: white;
+  font-weight: bold;
+  font-family: 'Audiowide', cursive;
+  border: 2px solid white;
 }
-.gameboard button:hover, .gameboard button:active, .gameboard button:focus, .gameboard button.active {
-	background: rgba(0,0,0,.9);
-	color: rgba(25,125,10,1);
-	cursor: pointer;
-	border-color: rgba(25,125,10,1);
-	outline: none;
+
+.gameboard button:hover,
+.gameboard button:active,
+.gameboard button:focus,
+.gameboard button.active {
+  background: rgba(0, 0, 0, .9);
+  color: rgba(25, 125, 10, 1);
+  cursor: pointer;
+  border-color: rgba(25, 125, 10, 1);
+  outline: none;
 }
 
 .target-container {
-	display: none;
-	top: 0;
-	left: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    content: url(/images/board/targeting-loop.gif);
-    z-index: 1;
-}
-.stateTarget .validTarget:hover .target-container {
-	display: block;
-	cursor: pointer;
+  display: none;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: url(/images/board/targeting-loop.gif);
+  z-index: 1;
 }
 
-.buy-zone .card {
-	position: relative;
-    display: inline-block;
+.stateTarget .validTarget:hover .target-container {
+  display: block;
+  cursor: pointer;
 }
-.card .buy-power, .card .quantity {
-	display: none;
+
+.card .buy-power,
+.card .quantity {
+  display: none;
 }
+
 .buy-zone .card .buy-power {
-	display: block;
-	position: absolute;
-	top: 2em;
-	right: 0;
-	font-size: 20px;
-	height: 1em;
-	width: 1em;
-	background-image: url('/images/board/power.png');
-    background-size: cover;
-    line-height: 2em;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
-    font-family: 'Audiowide', cursive;
+  display: block;
+  position: absolute;
+  top: 2em;
+  right: 0;
+  font-size: 20px;
+  height: 1em;
+  width: 1em;
+  background-image: url('/images/board/power.png');
+  background-size: cover;
+  line-height: 2em;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+  font-family: 'Audiowide', cursive;
 }
-.buy-zone .card .quantity  {
-	display: block;
-	position: absolute;
-	top: 4.75em;
-	right: .25em;
-	font-size: 15px;
-	height: 1em;
-	width: 1em;
-    line-height: 1em;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: 2px 2px 2px rgba(0,0,0,.5);
-    font-family: 'Audiowide', cursive;
+
+.buy-zone .card .quantity {
+  display: block;
+  position: absolute;
+  top: 4.75em;
+  right: .25em;
+  font-size: 15px;
+  height: 1em;
+  width: 1em;
+  line-height: 1em;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+  font-family: 'Audiowide', cursive;
 }
-.buy-zone .active .card:hover {
-	box-shadow: 0 0 20px rgba(10,200,230,1);
-	cursor: pointer;
+
+.buy-zone .active .card img:hover {
+  box-shadow: 0 0 20px rgba(10, 200, 230, 1);
+  cursor: pointer;
 }
+
 .inplay .active {
-	cursor: -webkit-grab;
+  cursor: -webkit-grab;
 }
-.hand .active .card {
-	cursor: -webkit-grab;
+
+.hand .active .card img {
+  cursor: -webkit-grab;
 }
-.hand .active.drag-over .card {
-	box-shadow: 0 0 20px rgba(10,200,230,1);
+
+.hand .active.drag-over .card img {
+  box-shadow: 0 0 20px rgba(10, 200, 230, 1);
 }
-.inplay .active.drag-over .card {
-	box-shadow: 0 0 20px red;
+
+.inplay .active.drag-over .card img {
+  box-shadow: 0 0 20px red;
 }
 
 .hand-drop-container {
-    position: absolute;
-    bottom: 3em;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    color: white;
-    background: rgba(0,0,0,0);
-    line-height: 20em;
-    vertical-align: bottom;
-    font-size: 40px;
-    opacity: 0;
-    z-index: 8;
+  position: absolute;
+  bottom: 3em;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0);
+  line-height: 20em;
+  vertical-align: bottom;
+  font-size: 40px;
+  opacity: 0;
+  z-index: 8;
 }
+
 .hand-drop-container.drag-enter {
-    opacity: 1;
+  opacity: 1;
 }
 
-@media (max-width: 1450px) {
+@media (max-width:1450px) {
   .server-stack {
-  	font-size: 65px;
+    font-size: 65px;
   }
+
   .server-stack.opp {
-  	font-size: 45px;
+    font-size: 45px;
   }
+
   .power {
-  	font-size: 45px;
+    font-size: 45px;
   }
+
 }
-@media (max-height: 950px) {
+
+@media (max-height:950px) {
   .server-stack {
-  	font-size: 65px;
+    font-size: 65px;
   }
+
   .server-stack.opp {
-  	font-size: 45px;
+    font-size: 45px;
   }
+
   .power {
-  	font-size: 45px;
+    font-size: 45px;
   }
+
 }
-@media (max-height: 800px) {
-	button { font-size: 20px;}
-  .server-stack {
-  	font-size: 55px;
+
+@media (max-height:800px) {
+  button {
+    font-size: 20px;
   }
+
+  .server-stack {
+    font-size: 55px;
+  }
+
   .server-stack.opp {
-  	font-size: 35px;
+    font-size: 35px;
   }
+
   .power {
-  	font-size: 35px;
+    font-size: 35px;
   }
+
 }
-@media (max-height: 650px) {
-	button { font-size: 12px;}
-  .server-stack {
-  	font-size: 45px;
+
+@media (max-height:650px) {
+  button {
+    font-size: 12px;
   }
+
+  .server-stack {
+    font-size: 45px;
+  }
+
   .server-stack.self {
-  	right: 2em;
+    right: 2em;
   }
+
   .server-stack.opp {
-  	font-size: 35px;
+    font-size: 35px;
   }
+
   .power {
-  	font-size: 35px;
+    font-size: 35px;
   }
+
   .buy-zone .card .buy-power {
-	font-size: 15px;
-	}
-	.buy-zone .card .quantity  {
-		font-size: 10px;
-		top: 5.5em;
-	}
+    font-size: 15px;
+  }
+
+  .buy-zone .card .quantity {
+    font-size: 10px;
+    top: 5.5em;
+  }
+
 }
-@media (max-height: 400px) {
-	button { font-size: 6px;}
+
+@media (max-height:400px) {
+  button {
+    font-size: 6px;
+  }
+
   body {
-  	font-size: 9px;
+    font-size: 9px;
   }
+
   .server-stack {
-  	font-size: 25px;
+    font-size: 25px;
   }
+
   .server-stack.self {
-  	right: 3em;
+    right: 3em;
   }
+
   .server-stack.opp {
-  	font-size: 20px;
+    font-size: 20px;
   }
+
   .power {
-  	font-size: 25px;
+    font-size: 25px;
   }
+
   .buy-zone .card .buy-power {
-	font-size: 10px;
-	}
-	.buy-zone .card .quantity  {
-		font-size: 6px;
-		top: 6em;
-	}
-}
-@media (max-height: 250px) {
-	button { font-size: 5px;}
-  .server-stack {
-  	font-size: 15px;
+    font-size: 10px;
   }
-  .server-stack.self {
-  	right: 4em;
+
+  .buy-zone .card .quantity {
+    font-size: 6px;
+    top: 6em;
   }
-  .server-stack.opp {
-  	font-size: 12px;
-  }
-  .power {
-  	font-size: 15px;
-  }
-   .buy-zone .card .buy-power {
-	font-size: 6px;
-	}
-	.buy-zone .card .quantity  {
-		font-size: 5px;
-		top: 5em;
-	}
+
 }
 
+@media (max-height:250px) {
+  button {
+    font-size: 5px;
+  }
+
+  .server-stack {
+    font-size: 15px;
+  }
+
+  .server-stack.self {
+    right: 4em;
+  }
+
+  .server-stack.opp {
+    font-size: 12px;
+  }
+
+  .power {
+    font-size: 15px;
+  }
+
+  .buy-zone .card .buy-power {
+    font-size: 6px;
+  }
+
+  .buy-zone .card .quantity {
+    font-size: 5px;
+    top: 5em;
+  }
+
+}
 
 .top-info {
   display: none;
@@ -386,15 +512,17 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(0,0,0,.5);
+  background: rgba(0, 0, 0, .5);
   color: white;
   height: 2.5em;
   z-index: 15;
 }
+
 .top-info > div {
   float: right;
   margin: .5em 1em;
 }
+
 /*
   fix to only be during the attack phase
  */
@@ -414,21 +542,18 @@
   left: 0 !important;
 }
 
-.stack-container.attacking {
-    position: relative;
-}
 .tapped {
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -o-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
-  margin: 1em 1.5em;
 }
 
 .action-log:hover {
   opacity: 1;
 }
+
 .action-log {
   position: absolute;
   top: 20%;
@@ -438,11 +563,13 @@
   z-index: 200;
   opacity: .7;
 }
+
 .action-log>div {
   position: relative;
   height: 24.75%;
   margin: 1% 5%;
 }
+
 .action-log img {
   height: 100%;
 }
@@ -450,20 +577,20 @@
 .action-log>div.ng-move,
 .action-log>div.ng-enter,
 .action-log>div.ng-leave {
-  -webkit-transition:all linear 0.5s;
-  transition:all linear 0.5s;
+  -webkit-transition: all linear 0.5s;
+  transition: all linear 0.5s;
 }
- 
+
 .action-log>div.ng-leave.ng-leave-active,
 .action-log>div.ng-move,
 .action-log>div.ng-enter {
-  opacity:0;
+  opacity: 0;
   left: -100%;
 }
- 
+
 .action-log>div.ng-leave,
 .action-log>div.ng-move.ng-move-active,
 .action-log>div.ng-enter.ng-enter-active {
-  opacity:1;
+  opacity: 1;
   left: 0;
 }
