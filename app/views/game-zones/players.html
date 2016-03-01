@@ -10,6 +10,7 @@
         {{ game.getMainFrameHealth(game.getIndex()) }}
         <div class="deck"><span>{{game.getDeck(game.getIndex()).length}}</span></div>
         <div class="discard"><span>{{game.getDiscard(game.getIndex()).length}}</span></div>
+        <div class="power"><span>{{ game.getCurrency(game.getIndex()) }}</span></div>
     </div>
 </div>
 
@@ -26,4 +27,5 @@
     <div class="deck"><span>{{game.getDeck(game.getOppIndex()).length}}</span></div>
     <!--{{game.getHand(game.getOppIndex()).length}}-->
     <div class="discard"><span>{{game.getDiscard(game.getOppIndex()).length}}</span></div>
+    <div class="power"><span>{{ game.getCurrency(game.getOppIndex()) }}</span></div>
 </div>

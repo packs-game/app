@@ -25,24 +25,8 @@
   right: 0%;
 }
 
-.buy-zone .power {
-  font-size: 6vmin;
-  height: 8vmin;
-  width: 8vmin;
-  background-image: url('/images/board/power.png');
-  background-size: cover;
-  line-height: 10vmin;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
-  font-family: 'Audiowide', cursive;
-  margin: 1vmin auto;
-}
-
-
 .buy-stack {
-  height: 16vmin;
+  height: 18vmin;
   margin: 2vmin 0;
 }
 

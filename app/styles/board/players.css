@@ -36,7 +36,8 @@
 
 
 .server-stack .deck,
-.server-stack .discard {
+.server-stack .discard,
+.server-stack .power {
   line-height: 5vmin;
   font-size: 3vmin;
   position: absolute;
@@ -46,6 +47,20 @@
   height: 5vmin;
   width: 5vmin;
 
+}
+
+.server-stack .power {
+  background-image: url('/images/board/power.png');
+  top: 1vmin;
+  right: 1vmin;
+  background-position-y: 0;
+}
+
+.server-stack.self .power {
+  line-height: 8vmin;
+  width: 8vmin;
+  height: 8vmin;
+  font-size: 5vmin;
 }
 
 .server-stack .discard {

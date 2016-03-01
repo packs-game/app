@@ -488,32 +488,6 @@
 			vm.addAttack($data.card.id, 'mainframe');
 		};
 
-		// var $ = window.$;
-		// vm.showBlocks = function() {
-		// 	$('.inplay [card-id]').parent().attr('style', '');
-		// 	var numBlocks = {};
-		// 	vm.blocks.forEach(function(block) {
-		// 		if (!numBlocks[block.target]) { numBlocks[block.target] = 1; }
-		// 		else { numBlocks[block.target]++; }
-
-		// 		var card = $('[card-id="' + block.id+'"]').parent();
-		// 		var target = $('[card-id="' + block.target+'"]').parent();
-		// 		var top = (target.offset().top - card.offset().top + (50*numBlocks[block.target]));
-		// 		if (vm.blocks.length < vm.inPlay().length) {
-		// 			top += $('[card-id="' + block.id+'"]').parent().height()/2;
-		// 		}
-		// 		top += 'px';
-		// 		var left = (target.offset().left-5) + 'px';
-
-		// 		card.css({
-		// 			position: 'absolute',
-		// 			top: top,
-		// 			left: left,
-		// 			zIndex: 500-numBlocks[block.target]
-		// 		});
-		// 	});
-		// };
-
 		vm.render = function(card) {
 			return cardRender.render(card).img;
 		};
