@@ -1,4 +1,23 @@
- <div class="card" ng-class="{tapped: card.tapped, 'summoning-sick': card.summoningSick}" ng-click="game.resolveTarget(card)" card-id="{{card.id}}">
+<div class="block-container blocks-{{game.getBlockCount(card.id)}}" ng-show="game.getBlockCount(card.id)">
+    <div class="blocker card" ng-repeat="blocker in game.getBlocks(card.id) track by $index"
+    	ng-click="game.resolveTarget(blocker)" card-id="{{blocker.id}}"
+    	ng-class="{
+            tapped: game.isAttacking(blocker.id),
+            active: game.canBlock() && !blocker.tapped,
+            validTarget: game.isValidTarget(blocker),
+            'summoning-sick': blocker.summoningSick
+        }"
+
+        ng-drag="game.canBlock() && !blocker.tapped"
+        ng-drag-data="{card: blocker}" ng-center-anchor="true">
+
+    	<div class="target-container" ng-if="game.isValidTarget(blocker)">
+            <img src="/images/board/target-loop.gif" />
+        </div>
+        <img src="{{game.render(blocker)}}" />
+     </div>
+</div>
+<div class="card" ng-class="{tapped: card.tapped, 'summoning-sick': card.summoningSick}" ng-click="game.resolveTarget(card)" card-id="{{card.id}}">
     	<div class="target-container" ng-if="game.isValidTarget(card)">
             <img src="/images/board/target-loop.gif" />
         </div>

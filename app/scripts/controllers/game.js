@@ -453,7 +453,6 @@
 					vm.attacks.splice(toUnAttack, 1);
 				}
 			}
-			vm.showBlocks();
 		};
 
 		vm.setActive = function(id) {
@@ -484,37 +483,36 @@
 		vm.dropRedzoneStack = function($data, $event, target) {
 			vm.setActive($data.card.id);
 			vm.addBlock($data.card.id, target);
-			vm.showBlocks();
 		};
 		vm.dropRedzone = function($data) {
 			vm.addAttack($data.card.id, 'mainframe');
 		};
 
-		var $ = window.$;
-		vm.showBlocks = function() {
-			$('.inplay [card-id]').parent().attr('style', '');
-			var numBlocks = {};
-			vm.blocks.forEach(function(block) {
-				if (!numBlocks[block.target]) { numBlocks[block.target] = 1; }
-				else { numBlocks[block.target]++; }
+		// var $ = window.$;
+		// vm.showBlocks = function() {
+		// 	$('.inplay [card-id]').parent().attr('style', '');
+		// 	var numBlocks = {};
+		// 	vm.blocks.forEach(function(block) {
+		// 		if (!numBlocks[block.target]) { numBlocks[block.target] = 1; }
+		// 		else { numBlocks[block.target]++; }
 
-				var card = $('[card-id="' + block.id+'"]').parent();
-				var target = $('[card-id="' + block.target+'"]').parent();
-				var top = (target.offset().top - card.offset().top + (50*numBlocks[block.target]));
-				if (vm.blocks.length < vm.inPlay().length) {
-					top += $('[card-id="' + block.id+'"]').parent().height()/2;
-				}
-				top += 'px';
-				var left = (target.offset().left-5) + 'px';
+		// 		var card = $('[card-id="' + block.id+'"]').parent();
+		// 		var target = $('[card-id="' + block.target+'"]').parent();
+		// 		var top = (target.offset().top - card.offset().top + (50*numBlocks[block.target]));
+		// 		if (vm.blocks.length < vm.inPlay().length) {
+		// 			top += $('[card-id="' + block.id+'"]').parent().height()/2;
+		// 		}
+		// 		top += 'px';
+		// 		var left = (target.offset().left-5) + 'px';
 
-				card.css({
-					position: 'absolute',
-					top: top,
-					left: left,
-					zIndex: 500-numBlocks[block.target]
-				});
-			});
-		};
+		// 		card.css({
+		// 			position: 'absolute',
+		// 			top: top,
+		// 			left: left,
+		// 			zIndex: 500-numBlocks[block.target]
+		// 		});
+		// 	});
+		// };
 
 		vm.render = function(card) {
 			return cardRender.render(card).img;
@@ -618,6 +616,31 @@
 			vm.isTargeting = false;
 			vm.targetingCard = null;
 		};
+
+		vm.getBlockCount = function(id) {
+			var ret = [];
+			vm.blocks.forEach(function(b){
+				if (b.target === id) {
+					ret.push(b);
+				}
+			});
+			return ret.length;
+		};
+		vm.getBlocks = function(id) {
+			var inPlay = vm.inPlay();
+			var map = {};
+			inPlay.forEach(function(c) {
+				if (!c.cards.length) { return; }
+				map[c.cards[0].id] = c.cards[0];
+			});
+			var ret = [];
+			vm.blocks.forEach(function(b){
+				if (b.target === id) {
+					ret.push(map[b.id]);
+				}
+			});
+			return ret;	
+		}
 	});
 
 }());
