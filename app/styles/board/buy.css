@@ -16,10 +16,13 @@
   right: -25%;
 }
 .stateNoBuy .board-zone {
-  margin-right: 0vmin;
+  margin-right: 0;
 }
 .stateNoBuy .hand {
   width: 95%;
+}
+.stateNoBuy .btn-container {
+  right: 0;
 }
 
 .buy-zone .power {

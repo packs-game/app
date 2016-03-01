@@ -1,11 +1,11 @@
 .player-info-container {
-  z-index: 10;
   position: absolute;
   width: 20%;
   bottom: .5vmin;
   right: .5vmin;
 }
 .server-stack {
+  z-index: 200;
   position: relative;
   background-image: url('/images/board/server.png');
   background-size: cover;
