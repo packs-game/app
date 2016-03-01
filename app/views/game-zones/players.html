@@ -1,0 +1,29 @@
+
+<div class="player-info-container">
+    <div class="server-stack self"
+        ng-click="game.resolveTarget(game.getMainframe(game.getIndex()))"
+        ng-class="{validTarget: game.isValidTarget(game.getMainframe(game.getIndex()))}">
+
+        <div class="target-container" ng-if="game.isValidTarget(game.getMainframe(game.getIndex()))">
+            <img src="/images/board/target-loop.gif" />
+        </div>
+        {{ game.getMainFrameHealth(game.getIndex()) }}
+        <div class="deck"><span>{{game.getDeck(game.getIndex()).length}}</span></div>
+        <div class="discard"><span>{{game.getDiscard(game.getIndex()).length}}</span></div>
+    </div>
+</div>
+
+<div class="server-stack opp"
+    ng-click="game.resolveTarget(game.getMainframe(game.getOppIndex()))"
+    ng-class="{validTarget: game.isValidTarget(game.getMainframe(game.getOppIndex()))}">
+
+    <div class="target-container" ng-if="game.isValidTarget(game.getMainframe(game.getOppIndex()))">
+        <img src="/images/board/target-loop.gif" />
+    </div>
+    <!--{{ player.name }}-->
+    {{ game.getMainFrameHealth(game.getOppIndex()) }}
+
+    <div class="deck"><span>{{game.getDeck(game.getOppIndex()).length}}</span></div>
+    <!--{{game.getHand(game.getOppIndex()).length}}-->
+    <div class="discard"><span>{{game.getDiscard(game.getOppIndex()).length}}</span></div>
+</div>

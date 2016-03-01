@@ -1,0 +1,12 @@
+<div class="buy-zone">
+    <div class="power"><span>{{ game.getCurrency(game.getOppIndex()) }}</span></div>
+    <div ng-repeat="stack in game.toBuy() track by $index" class="buy-stack">
+        <div ng-repeat="card in stack.cards"
+            ng-include="'views/card.html'"
+            ng-click="game.buy(card.id)"
+            ng-class="{active: game.canPlayHand() && card.cost <= game.getCurrency(game.getIndex()) && !game.isTargeting}"
+            style="display: inline-block;">
+        </div>
+    </div>
+    <div class="power"><span>{{ game.getCurrency(game.getIndex()) }}</span></div>
+</div>

@@ -1,0 +1,51 @@
+.action-log:hover {
+  opacity: 1;
+}
+
+.action-log {
+  position: absolute;
+  top: 20%;
+  left: 1vmin;
+  height: 60%;
+  width: 10vmin;
+  overflow: hidden;
+  z-index: 200;
+  opacity: .7;
+}
+
+.action-log>div {
+  border: 1px solid #3d3d3d;
+  background: #3d3d3d;
+  position: relative;
+  height: 10vmin;
+  margin: 1vmin auto;
+  text-align: center;
+  width: 10vmin;
+  padding: .5vmin;
+}
+
+.action-log img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.action-log>div.ng-move,
+.action-log>div.ng-enter,
+.action-log>div.ng-leave {
+  -webkit-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+}
+
+.action-log>div.ng-leave.ng-leave-active,
+.action-log>div.ng-move,
+.action-log>div.ng-enter {
+  opacity: 0;
+  left: -100%;
+}
+
+.action-log>div.ng-leave,
+.action-log>div.ng-move.ng-move-active,
+.action-log>div.ng-enter.ng-enter-active {
+  opacity: 1;
+  left: 0;
+}

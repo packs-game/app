@@ -16,115 +16,39 @@ body {
     <strong ng-show="!game.isWinner()">Defeat</strong>
     <a href="/" class="back-btn">Back</a>
 </div>
-<div ng-class="{stateAttack: game.attacks.length || game.canBlock(), stateTarget: game.isTargeting, stateNoBuy: !game.canPlayHand() && !game.isTargeting}"
+<div ng-class="{
+        stateAttack: game.attacks.length || game.canBlock(),
+        stateTarget: game.isTargeting,
+        stateNoBuy: !game.canPlayHand() && !game.isTargeting
+    }"
     ng-show="game.game.data.started && !game.gameOver()"
     class="gameboard noselect phase-{{game.game.data.phases[game.game.data.activePhase].name}}">
+
     <div class="top-info">
         Drag: {{game.dragging}}
-        <div ng-show="game.isTargeting" ng-click="game.cancelTarget()">SELECT TARGET</div>
+        <div ng-show="game.isTargeting"
+            ng-click="game.cancelTarget()">
+            SELECT TARGET
+        </div>
         <div>Turn: {{game.game.data.turn}}</div>
         <div>Active Player: <span>{{game.getActivePlayer().name}}</span></div>
         <div>Active Phase: <span>{{game.game.data.phases[game.game.data.activePhase].name}}</span></div>
     </div>
     <div class="board">
         <div class="btn-container">
-            <button ng-click="game.buttonAction()" ng-show="game.isActivePlayer()" ng-class="{active: game.mustEndTurn()}">
+            <button ng-click="game.buttonAction()"
+                ng-show="game.isActivePlayer()"
+                ng-class="{active: game.mustEndTurn()}">
                 {{game.buttonText()}}
             </button>
         </div>
-        <div class="oppplay board-zone">
-            <div class="stacks">
-                <stack ng-repeat="stack in game.oppInPlay() track by $index" class="tap-container">
-                    <div ng-repeat="card in stack.cards" ng-include="'views/card.html'" ng-class="{validTarget: game.isValidTarget(card)}" class="stack-container">
-                    </div>
-                </stack>
-            </div>
-        </div>
-        <div class="redzone board-zone" ng-drop="game.canAttack()" ng-drop-success="game.dropRedzone($data,$event)">
-            <div class="stacks">
-                <stack ng-repeat="stack in game.redzone() track by $index" class="tap-container">
-                    <div ng-repeat="card in stack.cards"
-                        ng-include="'views/card.html'"
-                        ng-drop="game.canBlock()"
-                        ng-drop-success="game.dropRedzoneStack($data,$event, card.id)"
-                        class="stack-container">
-                    </div>
-                </stack>
-            </div>
-        </div>
-         <div class="inplay board-zone" ng-drop="game.canBlock() || game.canAttack()" ng-drop-success="game.undo($data,$event)">
-            <div class="stacks">
-                <stack ng-repeat="stack in game.inPlay() track by $index" class="tap-container">
-                    <div ng-repeat="card in stack.cards" ng-include="'views/card.html'"
-                        ng-class="{
-                            attacking: game.isAttacking(card.id),
-                            tapped: game.isAttacking(card.id),
-                            active: ((game.canAttack() && !card.summoningSick) || (game.canBlock()) && !card.tapped),
-                            validTarget: game.isValidTarget(card)
-                        }"
 
-                        ng-drag="((game.canAttack() && !card.summoningSick) || game.canBlock()) && !card.tapped"
-                        ng-drag-data="{card: card}" ng-center-anchor="true"
-                        class="stack-container">
-                    </div>
-                </stack>
-            </div>
-        </div>
+        <ng-include src="'/views/game-zones/inplay.html'"></ng-include>
 
-       <div class="hand-drop-container"
-            ng-drop="game.canPlayHand()"
-            ng-show="game.dragging"
-            ng-drop-success="game.playCard($data.card, $event)">
-        </div>
-        <div class="hand">
-            <div ng-repeat="card in game.getPlayerHand() track by $index"
-                ng-include="'views/card.html'"
-                ng-drag="game.canPlayHand()"
-                ng-drag-data="{card: card}"
-                ng-center-anchor="true"
-                ng-class="{hide: card.playing, active: game.canPlayHand() && !game.isTargeting}">
-            </div>
-        </div>
-
-        <div class="buy-zone">
-            <div class="power"><span>{{ game.getCurrency(game.getOppIndex()) }}</span></div>
-            <div ng-repeat="stack in game.toBuy() track by $index" class="buy-stack">
-                <div ng-repeat="card in stack.cards"
-                    ng-include="'views/card.html'"
-                    ng-click="game.buy(card.id)"
-                    ng-class="{active: game.canPlayHand() && card.cost <= game.getCurrency(game.getIndex()) && !game.isTargeting}"
-                    style="display: inline-block;">
-                </div>
-            </div>
-            <div class="power"><span>{{ game.getCurrency(game.getIndex()) }}</span></div>
-        </div>
-
-        <div class="server-stack self"
-            ng-click="game.resolveTarget(game.getMainframe(game.getIndex()))"
-            ng-class="{validTarget: game.isValidTarget(game.getMainframe(game.getIndex()))}">
-
-            <div class="target-container" ng-if="game.isValidTarget(game.getMainframe(game.getIndex()))">
-                <img src="/images/board/target-loop.gif" />
-            </div>
-            {{ game.getMainFrameHealth(game.getIndex()) }}
-            <div class="deck"><span>{{game.getDeck(game.getIndex()).length}}</span></div>
-            <div class="discard"><span>{{game.getDiscard(game.getIndex()).length}}</span></div>
-        </div>
-
-        <div class="server-stack opp"
-            ng-click="game.resolveTarget(game.getMainframe(game.getOppIndex()))"
-            ng-class="{validTarget: game.isValidTarget(game.getMainframe(game.getOppIndex()))}">
-
-            <div class="target-container" ng-if="game.isValidTarget(game.getMainframe(game.getOppIndex()))">
-                <img src="/images/board/target-loop.gif" />
-            </div>
-            <!--{{ player.name }}-->
-            {{ game.getMainFrameHealth(game.getOppIndex()) }}
-
-            <div class="deck"><span>{{game.getDeck(game.getOppIndex()).length}}</span></div>
-            <!--{{game.getHand(game.getOppIndex()).length}}-->
-            <div class="discard"><span>{{game.getDiscard(game.getOppIndex()).length}}</span></div>
-        </div>
+        <ng-include src="'/views/game-zones/hand.html'"></ng-include>
+        <ng-include src="'/views/game-zones/buy.html'"></ng-include>
+        
+        <ng-include src="'/views/game-zones/players.html'"></ng-include>
 
         <div class="action-log">
             <div ng-repeat="action in game.actionlog | reverse">

@@ -1,0 +1,14 @@
+<div class="hand-drop-container"
+    ng-drop="game.canPlayHand()"
+    ng-show="game.dragging"
+    ng-drop-success="game.playCard($data.card, $event)">
+</div>
+<div class="hand">
+    <div ng-repeat="card in game.getPlayerHand() track by $index"
+        ng-include="'views/card.html'"
+        ng-drag="game.canPlayHand()"
+        ng-drag-data="{card: card}"
+        ng-center-anchor="true"
+        ng-class="{hide: card.playing, active: game.canPlayHand() && !game.isTargeting}">
+    </div>
+</div>

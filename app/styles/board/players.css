@@ -1,0 +1,65 @@
+.player-info-container {
+  z-index: 10;
+  position: absolute;
+  width: 20%;
+  bottom: .5vmin;
+  right: .5vmin;
+}
+.server-stack {
+  position: relative;
+  background-image: url('/images/board/server.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-size: 5vmin;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+  font-family: 'Audiowide', cursive;
+}
+
+.server-stack.self {
+  margin: 0 auto;
+  width: 25vmin;
+  height: 25vmin;  
+  line-height: 25vmin;
+}
+
+.server-stack.opp {
+  position: absolute;
+  top: .5vmin;
+  left: .5vmin;
+  width: 15vmin;
+  height: 15vmin;
+  line-height: 15vmin;
+}
+
+
+.server-stack .deck,
+.server-stack .discard {
+  line-height: 5vmin;
+  font-size: 3vmin;
+  position: absolute;
+  background-position-y: .5vmin;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 5vmin;
+  width: 5vmin;
+
+}
+
+.server-stack .discard {
+  bottom: 1vmin;
+  right: 1vmin;
+  background-image: url('/images/board/discard.png');
+}
+
+.server-stack .deck {
+  bottom: 1vmin;
+  left: 1vmin;
+  background-image: url('/images/board/deck.png');
+}
+
+.server-stack.validTarget {
+  box-shadow: 0 0 20px rgba(25, 125, 10, 1);
+}

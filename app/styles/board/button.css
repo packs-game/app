@@ -1,0 +1,35 @@
+.btn-container {
+  position: absolute;
+  right: 20%;
+  top: 50%;
+  z-index: 100;
+  height: 10vmin;
+  margin-top: -7.5vmin;
+  height: 10vmin;
+  width: 20vmin;
+}
+
+.gameboard button {
+  display: block;
+  z-index: 100;
+  padding: 1vmin;
+  font-size: 3vmin;
+  background: rgba(0, 0, 0, .8);
+  color: white;
+  font-weight: bold;
+  font-family: 'Audiowide', cursive;
+  border: 2px solid white;
+  width: 100%;
+  height: 100%;
+}
+
+.gameboard button:hover,
+.gameboard button:active,
+.gameboard button:focus,
+.gameboard button.active {
+  background: rgba(0, 0, 0, .9);
+  color: rgba(25, 125, 10, 1);
+  cursor: pointer;
+  border-color: rgba(25, 125, 10, 1);
+  outline: none;
+}
