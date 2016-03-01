@@ -17,7 +17,7 @@ body {
     <a href="/" class="back-btn">Back</a>
 </div>
 <div ng-class="{
-        stateAttack: game.attacks.length || game.canBlock(),
+        stateAttack: game.attacks.length || game.getPhase() == 'declare-defenders',
         stateTarget: game.isTargeting,
         stateNoBuy: !game.canPlayHand() && !game.isTargeting
     }"

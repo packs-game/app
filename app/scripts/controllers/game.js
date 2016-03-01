@@ -376,6 +376,7 @@
 			}
 			return vm.game.data.phases[vm.game.data.activePhase].name;
 		}
+		vm.getPhase = getPhase;
 
 		vm.isAttacking = function(cardId) {
 			var toRet = false;
