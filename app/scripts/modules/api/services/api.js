@@ -57,6 +57,9 @@ angular.module('packsApp').factory('api', ['$http', 'allServices', function($htt
 		getAllCards: function() {
 			return $http.get(services.game + '/cards', config);
 		},
+		getBackpack: function(id,token) {
+			return $http.post(services.items + '/backpack', {id: id, token: token}, config);
+		},
 		ready: serviceReq.then
 	};
 

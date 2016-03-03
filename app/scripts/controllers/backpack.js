@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name packsApp.controller:RootCtrl
+ * @name packsApp.controller:BackpackCtrl
  * @description
- * # RootCtrl
+ * # BackpackCtrl
  * Controller of the packsApp
  */
 angular.module('packsApp')
-	.controller('RootCtrl', function() {
+	.controller('BackpackCtrl', function(api, user) {
 		
 	});

@@ -56,6 +56,11 @@ angular
 				controller: 'ChatCtrl',
 				controllerAs: 'chat'
 			})
+			.when('/backpack', {
+			  templateUrl: 'views/backpack.html',
+			  controller: 'BackpackCtrl',
+			  controllerAs: 'bp'
+			})
 			.otherwise({
 				redirectTo: '/'
 			});

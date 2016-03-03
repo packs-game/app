@@ -30,6 +30,7 @@
     <!-- Add your site or application content here -->
     <div class="view-container" ng-controller="RootCtrl as root">
         <div ng-view="" class="view-element"></div>
+        <pre style="position: absolute; top: 0; left: 0; background: white;">{{root.userBackpack.power}}</pre>
     </div>
 
     <!-- build:js(.) scripts/oldieshim.js -->
@@ -85,6 +86,7 @@
         <script src="scripts/modules/game/directives/ng-right-click.js"></script>
         <script src="scripts/controllers/root.js"></script>
         <script src="scripts/controllers/chat.js"></script>
+        <script src="scripts/controllers/backpack.js"></script>
         <!-- endbuild -->
 </body>
 </html>

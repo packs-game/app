@@ -1,0 +1,9 @@
+<div class="card-list-screen" style="text-align: center; font-size: 24px; color: white;" >
+	<div ng-show="!root.userBackpack.power">
+		Item Server Unavailable, try again.
+	</div>
+	<div ng-show="root.userBackpack.power">
+		POWER: {{ root.userBackpack.power }}
+	</div>
+	<a href="/" class="back-btn">Back</a>
+</div>
